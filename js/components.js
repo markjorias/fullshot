@@ -3,8 +3,8 @@ const components = {
     <header id="main-header" class="header-theme-light">
       <div class="logo">
         <a href="index.html">
-          <img src="https://www.figma.com/api/mcp/asset/3e22e7dc-8965-40e0-8c73-c07eba2145e9" alt="Half Shot Cafe Logo" class="logo-light">
-          <img src="https://www.figma.com/api/mcp/asset/a192e1ca-9755-4046-8a06-bcda4e079988" alt="Half Shot Cafe Logo" class="logo-dark" style="display: none;">
+          <img src="assets/images/brand/LOGO-LONG-FULL.png" alt="Half Shot Cafe Logo" class="logo-light">
+          <img src="assets/images/brand/LOGO-LONG-WHITE.png" alt="Half Shot Cafe Logo" class="logo-dark" style="display: none;">
         </a>
       </div>
       <nav>
@@ -17,7 +17,11 @@ const components = {
       <div class="header-actions">
         <a href="menu.html" class="btn btn-primary">Menu</a>
         <div class="cart-icon">
-          <img src="assets/images/icons/cart.svg" alt="Cart">
+          <svg width="28" height="31" viewBox="0 0 28 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.33333 1L1 6.77778V27C1 27.7662 1.30436 28.501 1.84614 29.0428C2.38791 29.5845 3.12271 29.8889 3.88889 29.8889H24.1111C24.8773 29.8889 25.6121 29.5845 26.1539 29.0428C26.6956 28.501 27 27.7662 27 27V6.77778L22.6667 1H5.33333Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 6.77778H27" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.7777 12.5556C19.7777 14.0879 19.169 15.5575 18.0855 16.6411C17.0019 17.7246 15.5323 18.3333 13.9999 18.3333C12.4676 18.3333 10.998 17.7246 9.91444 16.6411C8.8309 15.5575 8.22217 14.0879 8.22217 12.5556" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
       </div>
     </header>
@@ -30,7 +34,7 @@ const components = {
         
         <div class="footer-nav">
           <div class="logo">
-            <img src="https://www.figma.com/api/mcp/asset/a192e1ca-9755-4046-8a06-bcda4e079988" alt="Half Shot Cafe Logo White">
+            <img src="assets/images/brand/LOGO-LONG-WHITE.png" alt="Half Shot Cafe Logo White">
           </div>
           <ul>
             <li><a href="about.html">About</a></li>

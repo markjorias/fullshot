@@ -39,7 +39,8 @@ button {
 .container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 var(--container-padding);
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
 }
 
 .btn {
@@ -83,7 +84,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--container-padding);
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
   background-color: transparent;
   z-index: 1000;
   transition: var(--transition-normal);
@@ -105,7 +107,10 @@ header.header-theme-dark:not(.scrolled) {
 }
 header.header-theme-dark:not(.scrolled) .logo-light { display: none; }
 header.header-theme-dark:not(.scrolled) .logo-dark { display: block !important; }
-header.header-theme-dark:not(.scrolled) .cart-icon { color: var(--text-white); }
+header.header-theme-dark:not(.scrolled) .cart-icon { 
+  color: var(--text-white);
+  filter: invert(1); /* Inverting cart icon as requested */
+}
 
 header.header-theme-light:not(.scrolled) {
   color: var(--text-main);
@@ -159,6 +164,10 @@ header .header-actions {
   align-items: center;
   overflow: hidden;
   color: var(--text-white);
+}
+
+.hero.sub-hero {
+  height: 660px;
 }
 
 .hero-bg {
@@ -294,9 +303,15 @@ footer .social-link {
   justify-content: center;
   width: 32px;
   height: 32px;
-  background-color: var(--primary-color);
+  background-color: transparent;
   border-radius: 4px;
-  padding: 6px;
+  padding: 4px;
+  color: var(--text-white);
+  transition: opacity var(--transition-fast);
+}
+
+footer .social-link:hover {
+  opacity: 0.7;
 }
 
 footer .social-link img {
@@ -311,6 +326,27 @@ footer .copyright {
   font-size: 18px;
   color: var(--text-white);
   opacity: 0.8;
+}
+
+/* Section Typography */
+.section-label {
+  color: var(--primary-color);
+  font-weight: 900;
+  font-size: 18px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: 48px;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.section-desc {
+  font-size: 18px;
+  font-weight: 300;
+  margin-bottom: 40px;
 }
 
 /* Utility */

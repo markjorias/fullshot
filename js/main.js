@@ -43,4 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sections.forEach(section => observer.observe(section));
   }
+
+  // Highlight Current Day in Opening Hours
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const currentDayName = days[new Date().getDay()];
+  const scheduleRows = document.querySelectorAll('.schedule-row');
+  
+  scheduleRows.forEach(row => {
+    const dayLabel = row.querySelector('span').textContent;
+    if (dayLabel === currentDayName) {
+      row.classList.add('highlight');
+    }
+  });
 });

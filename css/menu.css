@@ -1,6 +1,6 @@
 /* Menu Specific Styles */
 .menu-page {
-  padding-top: 150px;
+  padding-top: 80px;
   padding-bottom: 100px;
 }
 
@@ -120,6 +120,13 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  color: var(--dark-bg);
+}
+
+.add-to-cart-btn img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .pagination {
