@@ -55,4 +55,24 @@ document.addEventListener('DOMContentLoaded', () => {
       row.classList.add('highlight');
     }
   });
+
+  // Quantity Buttons Logic
+  const qtyControls = document.querySelectorAll('.quantity-controls');
+  qtyControls.forEach(control => {
+    const minusBtn = control.querySelector('.minus');
+    const plusBtn = control.querySelector('.plus');
+    const qtyVal = control.querySelector('.qty-val');
+
+    minusBtn.addEventListener('click', () => {
+      let currentVal = parseInt(qtyVal.textContent);
+      if (currentVal > 1) {
+        qtyVal.textContent = currentVal - 1;
+      }
+    });
+
+    plusBtn.addEventListener('click', () => {
+      let currentVal = parseInt(qtyVal.textContent);
+      qtyVal.textContent = currentVal + 1;
+    });
+  });
 });

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart | Half Shot Coffee</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="container">
+    <section class="cart-hero">
+      <h1 class="cart-title font-display">YOUR SELECTIONS.</h1>
+      <p class="cart-subtitle">A curated collection of your favorite roast and rituals, awaiting the final pour.</p>
+    </section>
+
+    <div class="cart-layout">
+      <!-- Cart Items Section -->
+      <div class="cart-items-container">
+        <div class="cart-items-header">
+          <div class="select-all">
+            <input type="checkbox" id="select-all-checkbox">
+            <label for="select-all-checkbox">SELECT ALL (3)</label>
+          </div>
+          <button class="clear-selected">CLEAR SELECTED</button>
+        </div>
+
+        <div class="cart-items-list">
+          <!-- Item 1 -->
+          <div class="cart-item">
+            <div class="item-checkbox">
+              <input type="checkbox">
+            </div>
+            <div class="item-image">
+              <img src="https://via.placeholder.com/150" alt="Hazelnut Latte">
+            </div>
+            <div class="item-details">
+              <div class="item-info">
+                <span class="item-tag">NON-COFFEE</span>
+                <h3 class="item-name font-display">HAZELNUT LATTE</h3>
+                <div class="item-quantity">
+                  <label>QUANTITY</label>
+                  <div class="quantity-controls">
+                    <button class="qty-btn minus">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn plus">+</button>
+                  </div>
+                </div>
+              </div>
+              <div class="item-actions">
+                <button class="remove-btn">
+                  <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 5H17M2 5L3 17C3 18.1046 3.89543 19 5 19H13C14.1046 19 15 18.1046 15 17L16 5M6 5V2C6 1.44772 6.44772 1 7 1H11C11.5523 1 12 1.44772 12 2V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <span class="item-price">PHP 100.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="cart-item">
+            <div class="item-checkbox">
+              <input type="checkbox">
+            </div>
+            <div class="item-image">
+              <img src="https://via.placeholder.com/150" alt="Hazelnut Latte">
+            </div>
+            <div class="item-details">
+              <div class="item-info">
+                <span class="item-tag">NON-COFFEE</span>
+                <h3 class="item-name font-display">HAZELNUT LATTE</h3>
+                <div class="item-quantity">
+                  <label>QUANTITY</label>
+                  <div class="quantity-controls">
+                    <button class="qty-btn minus">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn plus">+</button>
+                  </div>
+                </div>
+              </div>
+              <div class="item-actions">
+                <button class="remove-btn">
+                  <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 5H17M2 5L3 17C3 18.1046 3.89543 19 5 19H13C14.1046 19 15 18.1046 15 17L16 5M6 5V2C6 1.44772 6.44772 1 7 1H11C11.5523 1 12 1.44772 12 2V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <span class="item-price">PHP 100.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="cart-item">
+            <div class="item-checkbox">
+              <input type="checkbox">
+            </div>
+            <div class="item-image">
+              <img src="https://via.placeholder.com/150" alt="Hazelnut Latte">
+            </div>
+            <div class="item-details">
+              <div class="item-info">
+                <span class="item-tag">NON-COFFEE</span>
+                <h3 class="item-name font-display">HAZELNUT LATTE</h3>
+                <div class="item-quantity">
+                  <label>QUANTITY</label>
+                  <div class="quantity-controls">
+                    <button class="qty-btn minus">-</button>
+                    <span class="qty-val">1</span>
+                    <button class="qty-btn plus">+</button>
+                  </div>
+                </div>
+              </div>
+              <div class="item-actions">
+                <button class="remove-btn">
+                  <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 5H17M2 5L3 17C3 18.1046 3.89543 19 5 19H13C14.1046 19 15 18.1046 15 17L16 5M6 5V2C6 1.44772 6.44772 1 7 1H11C11.5523 1 12 1.44772 12 2V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <span class="item-price">PHP 100.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary Section -->
+      <aside class="order-summary">
+        <h2 class="summary-title">Order Summary</h2>
+        <div class="summary-details">
+          <div class="summary-row">
+            <span>SUBTOTAL (3 ITEMS)</span>
+          </div>
+          <div class="summary-row">
+            <span>ADDONS</span>
+          </div>
+          <div class="summary-row">
+            <span>SHIPPING FEE</span>
+          </div>
+          <div class="summary-row total-row">
+            <span class="total-label">TOTAL TO PAY</span>
+            <span class="total-price">PHP100.00</span>
+          </div>
+        </div>
+        <button class="btn-checkout">CHECKOUT & PROCEED TO PAY</button>
+      </aside>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

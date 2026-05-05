@@ -44,7 +44,7 @@
   --font-display: 'Fields', serif;
 
   /* Spacing */
-  --container-padding: 252px;
+  --container-padding: 120px;
   --section-gap: 80px;
   --element-gap: 24px;
 
@@ -55,19 +55,19 @@
 
 @media (max-width: 1200px) {
   :root {
-    --container-padding: 100px;
+    --container-padding: 60px;
   }
 }
 
 @media (max-width: 768px) {
   :root {
-    --container-padding: 40px;
+    --container-padding: 32px;
     --section-gap: 40px;
   }
 }
 
 @media (max-width: 480px) {
   :root {
-    --container-padding: 20px;
+    --container-padding: 16px;
   }
 }

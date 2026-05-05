@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Half Shot Coffee</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/checkout.css">
+</head>
+
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="container">
+    <div class="checkout-layout">
+      <!-- Checkout Flow Section -->
+      <div class="checkout-flow">
+        <h1 class="page-title font-display">Review and Pay.</h1>
+
+        <!-- Shipping Details -->
+        <section class="checkout-section shipping-details">
+          <div class="section-header">
+            <h2 class="section-title-small">SHIPPING DETAILS</h2>
+            <button class="edit-link">EDIT</button>
+          </div>
+          <div class="section-content">
+            <p class="customer-name">Juan Dela Cruz</p>
+            <p>Address 1</p>
+            <p>Address Line 2</p>
+          </div>
+        </section>
+
+        <!-- Redeem Rewards -->
+        <section class="checkout-section redeem-rewards">
+          <h2 class="section-title-small">Redeem Rewards</h2>
+          <div class="rewards-card">
+            <div class="rewards-info">
+              <span class="label">YOUR BALANCE</span>
+              <span class="value points">1,250 Points</span>
+              <p class="description">Redeem 1250 points for PHP25.00 off!</p>
+            </div>
+            <div class="rewards-value">
+              <span class="label">CURRENT VALUE</span>
+              <span class="value price">PHP25.00</span>
+              <button class="btn-apply">APPLY</button>
+            </div>
+          </div>
+
+          <div class="promo-code">
+            <label for="promo-input">PROMO OR REWARD CODES</label>
+            <div class="promo-input-group">
+              <input type="text" id="promo-input" placeholder="Enter code">
+              <button class="btn-apply-outline">APPLY</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Payment Method -->
+        <section class="checkout-section payment-method">
+          <h2 class="section-title-small">Payment Method</h2>
+          <div class="payment-options">
+            <div class="payment-option selected">
+              <div class="payment-logo gcash-logo">GCash</div>
+              <div class="check-mark">✓</div>
+            </div>
+            <div class="payment-option">
+              <div class="payment-logo maya-logo">Maya</div>
+            </div>
+          </div>
+
+          <div class="card-payment-form">
+            <div class="form-header">
+              <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18 0H2C0.89 0 0.01 0.89 0.01 2L0 14C0 15.11 0.89 16 2 16H18C19.11 16 20 15.11 20 14V2C20 0.89 19.11 0 18 0ZM18 14H2V8H18V14ZM18 4H2V2H18V4Z"
+                  fill="#333333" />
+              </svg>
+              <span>PAY WITH CARD</span>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="Card Number">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group half">
+                <label for="expiry">MM / YY</label>
+                <input type="text" id="expiry" placeholder="MM / YY">
+              </div>
+              <div class="form-group half">
+                <label for="cvc">CVC</label>
+                <input type="text" id="cvc" placeholder="CVC">
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Order Summary Section -->
+      <aside class="order-summary-container">
+        <div class="order-summary-card">
+          <h2 class="summary-title">Order Summary</h2>
+
+          <div class="summary-items">
+            <div class="summary-item">
+              <div class="item-img">
+                <img src="https://via.placeholder.com/64" alt="The Morning Kick">
+              </div>
+              <div class="item-info">
+                <h3 class="item-name">The Morning Kick (Venti)</h3>
+                <p class="item-desc">Double shot espresso, oat milk, sugar-free vanilla</p>
+              </div>
+              <div class="item-price">$6.50</div>
+            </div>
+            <div class="summary-item">
+              <div class="item-img">
+                <img src="https://via.placeholder.com/64" alt="Artisan Croissant">
+              </div>
+              <div class="item-info">
+                <h3 class="item-name">Artisan Croissant</h3>
+                <p class="item-desc">Warm, flaky butter pastry</p>
+              </div>
+              <div class="item-price">$4.75</div>
+            </div>
+          </div>
+
+          <div class="summary-calculations">
+            <div class="calc-row">
+              <span>Subtotal</span>
+              <span>$11.25</span>
+            </div>
+            <div class="calc-row">
+              <span>Shipping</span>
+              <span>$2.00</span>
+            </div>
+            <div class="calc-row discount">
+              <span>Reward Discount (Applied)</span>
+              <span>-$5.00</span>
+            </div>
+          </div>
+
+          <div class="total-row">
+            <span class="total-label">Total</span>
+            <span class="total-value">$8.25</span>
+          </div>
+
+          <div class="secure-badge">
+            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M10 5H9V4C9 1.79 7.21 0 5 0C2.79 0 1 1.79 1 4V5H0V14H10V5ZM2 4C2 2.34 3.34 1 5 1C6.66 1 8 2.34 8 4V5H2V4ZM9 13H1V6H9V13Z"
+                fill="#666666" />
+              <path
+                d="M5 11C5.55228 11 6 10.5523 6 10C6 9.44772 5.55228 9 5 9C4.44772 9 4 9.44772 4 10C4 10.5523 4.44772 11 5 11Z"
+                fill="#666666" />
+            </svg>
+            <span>SECURE SSL ENCRYPTED PAYMENT</span>
+          </div>
+
+          <button class="btn-complete">Complete Order</button>
+
+          <p class="terms-text">BY CLICKING, YOU AGREE TO THE TERMS OF SERVICE.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Payment method selection
+      const paymentOptions = document.querySelectorAll('.payment-option');
+      paymentOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          paymentOptions.forEach(opt => {
+            opt.classList.remove('selected');
+            const check = opt.querySelector('.check-mark');
+            if (check) check.remove();
+          });
+          option.classList.add('selected');
+          const checkMark = document.createElement('div');
+          checkMark.className = 'check-mark';
+          checkMark.textContent = '✓';
+          option.appendChild(checkMark);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
+paymentOptions.forEach(opt => {
+opt.classList.remove('selected');
+const check = opt.querySelector('.check-mark');
+if (check) check.remove();
+});
+option.classList.add('selected');
+const checkMark = document.createElement('div');
+checkMark.className = 'check-mark';
+checkMark.textContent = '✓';
+option.appendChild(checkMark);
+});
+});
+});
+</script>
+</body>
+
+</html>
