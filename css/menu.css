@@ -1,0 +1,157 @@
+/* Menu Specific Styles */
+.menu-page {
+  padding-top: 150px;
+  padding-bottom: 100px;
+}
+
+.menu-layout {
+  display: flex;
+  gap: 40px;
+}
+
+.menu-sidebar {
+  width: 228px;
+  flex-shrink: 0;
+}
+
+.menu-sidebar h2 {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.menu-sidebar h3 {
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.filter-icon {
+  width: 32px;
+  height: 32px;
+  background-color: #d9d9d9;
+  border-radius: 4px;
+}
+
+.filter-item.active .filter-icon {
+  background-color: var(--primary-color);
+}
+
+.filter-item span {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.menu-main {
+  flex: 1;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 24px;
+}
+
+.item-card {
+  position: relative;
+}
+
+.item-image {
+  height: 316px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-category {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--text-muted);
+}
+
+.item-name {
+  font-size: 20px;
+  font-weight: 500;
+  height: 60px;
+}
+
+.item-desc {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+.item-price {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.add-to-cart-btn {
+  position: absolute;
+  top: 286px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  background-color: #d9d9d9;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.pagination {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 992px) {
+  .menu-layout {
+    flex-direction: column;
+  }
+  .menu-sidebar {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 20px;
+  }
+  .menu-sidebar h2, .menu-sidebar h3 {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}

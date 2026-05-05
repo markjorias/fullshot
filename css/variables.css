@@ -1,0 +1,73 @@
+@font-face {
+  font-family: 'Panel Sans';
+  src: url('../assets/fonts/panel-sans/fonts/fonnts.com-Panel_Sans_Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Panel Sans';
+  src: url('../assets/fonts/panel-sans/fonts/fonnts.com-Panel_Sans_Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Panel Sans';
+  src: url('../assets/fonts/panel-sans/fonts/fonnts.com-Panel_Sans_Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fields';
+  src: url('../assets/fonts/fields-font-family/Fontspring-DEMO-fields-black-iF663b4707c7d1f.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+:root {
+  /* Colors */
+  --primary-color: #9c4f2c;
+  --secondary-color: #ff5000;
+  --accent-bg: rgba(216, 67, 21, 0.1);
+  --dark-bg: #000000;
+  --light-bg: #ffffff;
+  
+  --text-main: #000000;
+  --text-white: #ffffff;
+  --text-accent: #9c4f2c;
+  --text-muted: #666666;
+
+  /* Typography */
+  --font-main: 'Panel Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-display: 'Fields', serif;
+
+  /* Spacing */
+  --container-padding: 252px;
+  --section-gap: 80px;
+  --element-gap: 24px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --container-padding: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --container-padding: 40px;
+    --section-gap: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --container-padding: 20px;
+  }
+}
