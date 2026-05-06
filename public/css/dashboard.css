@@ -901,3 +901,128 @@
     padding: 20px;
   }
 }
+
+/* Feedback Management Styles */
+.feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 32px;
+}
+
+.feedback-admin-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  padding: 32px;
+  border: 1px solid #f0f0f0;
+  transition: var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback-admin-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #f5f5f5;
+  padding-bottom: 16px;
+  background-color: transparent; /* Reset from potential global header styles */
+  position: static;
+  height: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.feedback-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.feedback-author {
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--dark-bg);
+}
+
+.feedback-date {
+  font-size: 13px;
+  color: #999;
+}
+
+.feedback-rating {
+  color: #ffcc00;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.feedback-body {
+  flex: 1;
+}
+
+.feedback-email {
+  font-size: 14px;
+  color: var(--primary-color);
+  margin-bottom: 16px;
+}
+
+.feedback-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.feedback-stats span {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.feedback-comment {
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+  background: #fdfaf7;
+  padding: 16px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.feedback-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-feedback-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: transparent;
+  color: #ff3b30;
+  border: 1.5px solid #ff3b30;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-feedback-btn:hover {
+  background: #ff3b30;
+  color: white;
+}

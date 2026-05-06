@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailsImage = document.querySelector('.details-image img');
 
     // Set Image
-    detailsImage.src = item.image_url || 'https://via.placeholder.com/600x600';
+    detailsImage.src = item.image_url || 'assets/images/brand/LOGO-FULL.png';
     detailsImage.alt = item.name;
 
     // Set Info

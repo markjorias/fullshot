@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       itemEl.className = 'summary-item';
       itemEl.innerHTML = `
         <div class="item-img">
-          <img src="${item.image_url || 'https://via.placeholder.com/64'}" alt="${item.name}">
+          <img src="${item.image_url || 'assets/images/brand/LOGO-FULL.png'}" alt="${item.name}">
         </div>
         <div class="item-info">
           <h3 class="item-name">${item.name} ${item.size ? `(${item.size})` : ''}</h3>

@@ -197,6 +197,11 @@ main {
   object-fit: cover;
 }
 
+.item-image img[src$="LOGO-FULL.png"] {
+  object-fit: contain;
+  padding: 16px;
+}
+
 .item-info-row {
   display: flex;
   justify-content: space-between;

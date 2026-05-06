@@ -30,6 +30,10 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             <span>Feature Management</span>
           </li>
+          <li class="nav-item" data-target="feedback-management">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Feedbacks</span>
+          </li>
         </ul>
       </nav>
 
@@ -96,7 +100,7 @@
             <tbody id="menu-items-table">
               <!-- Dynamically populated -->
               <tr>
-                <td class="col-img"><img src="https://via.placeholder.com/50" alt="Item"></td>
+                <td class="col-img"><img src="assets/images/brand/LOGO-FULL.png" alt="Item"></td>
                 <td>Hazelnut Latte</td>
                 <td class="col-desc">Smooth and nutty latte...</td>
                 <td>PHP 100.00</td>
@@ -185,6 +189,14 @@
         </div>
         <div class="feature-footer">
           <button id="save-features-btn" class="btn btn-primary">Save Featured Changes</button>
+        </div>
+      </section>
+
+      <!-- Feedback Management Section -->
+      <section id="feedback-management" class="content-section">
+        <div class="feedback-grid" id="admin-feedback-list">
+          <!-- Dynamically populated by dashboard.js -->
+          <p style="padding: 40px; text-align: center; grid-column: 1/-1;">Loading feedback...</p>
         </div>
       </section>
     </div>

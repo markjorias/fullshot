@@ -209,8 +209,87 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target === 'order-management') {
         loadAdminOrders();
       }
+
+      // Load feedback if needed
+      if (target === 'feedback-management') {
+        loadAdminFeedback();
+      }
     });
   });
+
+  // --- Feedback Management Logic ---
+  async function loadAdminFeedback() {
+    const feedbackList = document.getElementById('admin-feedback-list');
+    try {
+      const response = await fetch('/api/feedback');
+      const feedbacks = await response.json();
+      renderAdminFeedback(feedbacks);
+    } catch (err) {
+      console.error('Error loading feedback:', err);
+      feedbackList.innerHTML = '<p style="padding: 40px; text-align: center; grid-column: 1/-1;">Error loading feedback.</p>';
+    }
+  }
+
+  function renderAdminFeedback(feedbacks) {
+    const feedbackList = document.getElementById('admin-feedback-list');
+    feedbackList.innerHTML = '';
+
+    if (feedbacks.length === 0) {
+      feedbackList.innerHTML = '<p style="padding: 40px; text-align: center; grid-column: 1/-1;">No feedback received yet.</p>';
+      return;
+    }
+
+    feedbacks.forEach(fb => {
+      const card = document.createElement('div');
+      card.className = 'feedback-admin-card';
+      
+      card.innerHTML = `
+        <div class="feedback-header">
+          <div class="feedback-meta">
+            <span class="feedback-author">${fb.name}</span>
+            <span class="feedback-date">${new Date(fb.created_at).toLocaleDateString()}</span>
+          </div>
+          <div class="feedback-rating">
+            ${'★'.repeat(fb.rating)}${'☆'.repeat(5 - fb.rating)}
+          </div>
+        </div>
+        <div class="feedback-body">
+          <p class="feedback-email"><strong>Email:</strong> ${fb.email}</p>
+          <div class="feedback-stats">
+            <span><strong>First Time:</strong> ${fb.first_time.toUpperCase()}</span>
+            <span><strong>Friendly Service:</strong> ${fb.service.toUpperCase()}</span>
+            <span><strong>Recommend:</strong> ${fb.recommend.toUpperCase()}</span>
+          </div>
+          <p class="feedback-comment">"${fb.comments || 'No comments provided.'}"</p>
+        </div>
+        <div class="feedback-actions">
+          <button class="delete-feedback-btn" data-id="${fb.id}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            Remove
+          </button>
+        </div>
+      `;
+      feedbackList.appendChild(card);
+    });
+
+    // Add Delete Listeners
+    feedbackList.querySelectorAll('.delete-feedback-btn').forEach(btn => {
+      btn.addEventListener('click', () => deleteFeedback(btn.dataset.id));
+    });
+  }
+
+  async function deleteFeedback(id) {
+    if (!confirm('Are you sure you want to remove this feedback?')) return;
+
+    try {
+      const response = await fetch(`/api/feedback/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        loadAdminFeedback();
+      }
+    } catch (err) {
+      console.error('Error deleting feedback:', err);
+    }
+  }
 
   // --- Order Management Logic ---
   async function loadAdminOrders() {
@@ -490,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach(item => {
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td class="col-img"><img src="${item.image_url || 'https://via.placeholder.com/50'}" alt="${item.name}"></td>
+        <td class="col-img"><img src="${item.image_url || 'assets/images/brand/LOGO-FULL.png'}" alt="${item.name}"></td>
         <td>${item.name}</td>
         <td class="col-desc">${item.description || ''}</td>
         <td>PHP ${item.price.toFixed(2)}</td>

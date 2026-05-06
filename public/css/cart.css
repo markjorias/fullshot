@@ -103,6 +103,11 @@ main {
   object-fit: cover;
 }
 
+.item-image img[src$="LOGO-FULL.png"] {
+  object-fit: contain;
+  padding: 24px;
+}
+
 .item-details {
   flex: 1;
   display: flex;

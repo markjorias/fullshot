@@ -91,6 +91,11 @@
   object-fit: cover;
 }
 
+.item-image img[src$="LOGO-FULL.png"] {
+  object-fit: contain;
+  padding: 40px;
+}
+
 .item-info {
   display: flex;
   flex-direction: column;

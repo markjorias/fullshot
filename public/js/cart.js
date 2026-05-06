@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <input type="checkbox" checked data-id="${item.id}">
         </div>
         <div class="item-image">
-          <img src="${item.image_url || 'https://via.placeholder.com/150'}" alt="${item.name}">
+          <img src="${item.image_url || 'assets/images/brand/LOGO-FULL.png'}" alt="${item.name}">
         </div>
         <div class="item-details">
           <div class="item-info">

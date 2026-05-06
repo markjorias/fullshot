@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
           card.className = 'menu-card';
           card.innerHTML = `
             <div class="menu-card-bg">
-              <img src="${item.image_url || 'https://via.placeholder.com/300'}" alt="${item.name}">
+              <img src="${item.image_url || 'assets/images/brand/LOGO-FULL.png'}" alt="${item.name}">
               <div class="menu-card-overlay"></div>
             </div>
             <div class="menu-card-content">
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update Image with animation
         imageElement.classList.remove('fade-in');
         void imageElement.offsetWidth; // Force reflow
-        imageElement.src = item.image_url || 'https://via.placeholder.com/500';
+        imageElement.src = item.image_url || 'assets/images/brand/LOGO-FULL.png';
         imageElement.alt = item.name;
         imageElement.classList.add('fade-in');
         currentItemId = item.id;
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set initial state (first item)
     if (items[0]) {
-      imageElement.src = items[0].image_url || 'https://via.placeholder.com/500';
+      imageElement.src = items[0].image_url || 'assets/images/brand/LOGO-FULL.png';
       imageElement.alt = items[0].name;
     }
   }

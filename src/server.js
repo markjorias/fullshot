@@ -87,6 +87,42 @@ app.delete('/api/menu/:id', (req, res) => {
   });
 });
 
+// --- Feedback API ---
+app.post('/api/feedback', (req, res) => {
+  const { name, email, first_time, service, rating, recommend, comments } = req.body;
+  const sql = `INSERT INTO feedback (name, email, first_time, service, rating, recommend, comments) 
+               VALUES (?, ?, ?, ?, ?, ?, ?)`;
+  const params = [name, email, first_time, service, rating, recommend, comments];
+  
+  db.run(sql, params, function(err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({ id: this.lastID });
+  });
+});
+
+app.get('/api/feedback', (req, res) => {
+  db.all('SELECT * FROM feedback ORDER BY created_at DESC', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json(rows);
+  });
+});
+
+app.delete('/api/feedback/:id', (req, res) => {
+  db.run('DELETE FROM feedback WHERE id = ?', req.params.id, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({ deleted: true });
+  });
+});
+
 // Featured Products logic
 app.get('/api/featured', (req, res) => {
   db.all('SELECT * FROM featured_items', [], (err, rows) => {

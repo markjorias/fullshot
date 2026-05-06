@@ -27,10 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'item-card';
       
-      const imageUrl = item.image_url || '';
-      const imageHtml = imageUrl 
-        ? `<img src="${imageUrl}" alt="${item.name}">` 
-        : '';
+      const imageUrl = item.image_url || 'assets/images/brand/LOGO-FULL.png';
+      const imageHtml = `<img src="${imageUrl}" alt="${item.name}">`;
 
       card.innerHTML = `
         <a href="item_details.html?id=${item.id}">

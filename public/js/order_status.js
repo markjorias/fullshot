@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       itemEl.className = 'order-item';
       itemEl.innerHTML = `
         <div class="item-image">
-          <img src="${item.image_url || 'https://via.placeholder.com/150'}" alt="${item.name}">
+          <img src="${item.image_url || 'assets/images/brand/LOGO-FULL.png'}" alt="${item.name}">
         </div>
         <div class="item-info-row">
           <div class="item-main-info">

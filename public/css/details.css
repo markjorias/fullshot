@@ -24,6 +24,11 @@
   object-fit: cover;
 }
 
+.details-image img[src$="LOGO-FULL.png"] {
+  object-fit: contain;
+  padding: 40px;
+}
+
 .details-content {
   flex: 1;
 }
