@@ -107,10 +107,7 @@ header.header-theme-dark:not(.scrolled) {
 }
 header.header-theme-dark:not(.scrolled) .logo-light { display: none; }
 header.header-theme-dark:not(.scrolled) .logo-dark { display: block !important; }
-header.header-theme-dark:not(.scrolled) .cart-icon { 
-  color: var(--text-white);
-  filter: invert(1); /* Inverting cart icon as requested */
-}
+header.header-theme-dark:not(.scrolled) .cart-icon { color: var(--text-white); }
 
 header.header-theme-light:not(.scrolled) {
   color: var(--text-main);
@@ -148,12 +145,12 @@ header .header-actions {
   width: 48px;
   height: 48px;
   cursor: pointer;
+  color: var(--text-white);
 }
 
-.cart-icon img {
-  height: 24px;
-  width: auto;
-  object-fit: contain;
+.cart-icon svg {
+  width: 28px;
+  height: auto;
 }
 
 /* Hero Section (Shared) */
