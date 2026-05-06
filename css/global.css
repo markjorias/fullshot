@@ -351,6 +351,68 @@ footer .copyright {
   margin-bottom: 40px;
 }
 
+/* Global Notifications */
+.notification-container {
+  position: fixed;
+  top: 100px;
+  right: 24px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.notification {
+  pointer-events: auto;
+  background: white;
+  border-radius: 12px;
+  padding: 16px 24px;
+  min-width: 300px;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideInRight 0.3s ease forwards;
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--primary-color);
+}
+
+.notification.fade-out {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.notification-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-message {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark-bg);
+  line-height: 1.4;
+}
+
+.notification.success { border-left-color: #34c759; }
+.notification.error { border-left-color: #ff3b30; }
+.notification.info { border-left-color: var(--primary-color); }
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 /* Utility */
 .text-accent { color: var(--text-accent); }
 .font-display { font-family: var(--font-display); }

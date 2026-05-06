@@ -9,10 +9,38 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const user = JSON.parse(userStr);
   if (user.role !== 'admin') {
-    alert('Access Denied: Admin privileges required.');
-    window.location.href = 'index.html';
+    showNotification('Access Denied: Admin privileges required.', 'error');
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 1500);
     return;
   }
+
+  // --- Main UI Selectors ---
+  const navItems = document.querySelectorAll('.nav-item');
+  const sections = document.querySelectorAll('.content-section');
+  const pageTitle = document.getElementById('page-title');
+  const addItemBtn = document.getElementById('add-item-btn');
+  const menuSearch = document.getElementById('menu-search');
+  const menuCategoryFilter = document.getElementById('menu-category-filter');
+  const ordersList = document.getElementById('admin-orders-list');
+  const addonsSelect = document.getElementById('item-addons');
+  const saveFeaturesBtn = document.getElementById('save-features-btn');
+  const imageInput = document.getElementById('item-image');
+  const imagePreview = document.getElementById('image-preview');
+  const uploadZone = document.getElementById('upload-zone');
+  const modal = document.getElementById('item-modal');
+  const closeModal = document.querySelector('.close-modal');
+  const itemForm = document.getElementById('item-form');
+  const modalTitle = document.getElementById('modal-title');
+  const categorySelect = document.getElementById('item-category');
+  const variationsList = document.getElementById('variations-list');
+  const sizesList = document.getElementById('sizes-list');
+  const addVariationBtn = document.getElementById('add-variation-btn');
+  const addSizeBtn = document.getElementById('add-size-btn');
+
+  let allMenuItems = [];
+  let currentImageData = '';
 
   // --- Searchable Dropdown Logic ---
   function initSearchableDropdown(select) {
@@ -115,8 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Addons Dropdown Logic ---
-  const addonsSelect = document.getElementById('item-addons');
-
   async function populateAddonsDropdown() {
     try {
       const response = await fetch('/api/menu?category=ADD-ONS');
@@ -134,16 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- Navigation Logic ---
-  const navItems = document.querySelectorAll('.nav-item');
-  const sections = document.querySelectorAll('.content-section');
-  const pageTitle = document.getElementById('page-title');
-  const addItemBtn = document.getElementById('add-item-btn');
-
   // --- Image Handling ---
-  const imageInput = document.getElementById('item-image');
-  const imagePreview = document.getElementById('image-preview');
-  let currentImageData = '';
+  if (uploadZone) {
+    uploadZone.addEventListener('click', () => imageInput.click());
+  }
 
   imageInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
@@ -157,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // --- Navigation Logic ---
   navItems.forEach(item => {
     item.addEventListener('click', () => {
       const target = item.getAttribute('data-target');
@@ -192,8 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- Order Management Logic ---
-  const ordersList = document.getElementById('admin-orders-list');
-
   async function loadAdminOrders() {
     try {
       const response = await fetch('/api/orders');
@@ -286,8 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Feature Management Logic ---
-  const saveFeaturesBtn = document.getElementById('save-features-btn');
-
   async function populateFeatureSelectors() {
     try {
       const [menuResponse, featuredResponse] = await Promise.all([
@@ -316,14 +333,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
           select.appendChild(option);
         });
-
-        /* 
-        if (!select.dataset.searchableInit) {
-          initSearchableDropdown(select);
-        } else if (select.refreshSearchable) {
-          select.refreshSearchable();
-        }
-        */
       });
     } catch (err) {
       console.error('Error populating features:', err);
@@ -350,9 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
           featured[section][index] = null;
         }
       });
-
-      // Clean up nulls for the API if preferred, but keeping them ensures indices match
-      // Actually, it's better to keep them so the dashboard reloads correctly.
       
       try {
         await fetch('/api/featured', {
@@ -360,19 +366,15 @@ document.addEventListener('DOMContentLoaded', () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(featured)
         });
-        alert('Featured products saved successfully!');
+        showNotification('Featured products saved successfully!', 'success');
       } catch (err) {
         console.error('Error saving features:', err);
+        showNotification('Failed to save features.', 'error');
       }
     });
   }
 
   // --- Dynamic Options Logic (Variations & Sizes) ---
-  const variationsList = document.getElementById('variations-list');
-  const sizesList = document.getElementById('sizes-list');
-  const addVariationBtn = document.getElementById('add-variation-btn');
-  const addSizeBtn = document.getElementById('add-size-btn');
-
   function createOptionRow(type, label = '', price = '') {
     const row = document.createElement('div');
     row.className = 'option-row';
@@ -432,12 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Modal Logic ---
-  const modal = document.getElementById('item-modal');
-  const closeModal = document.querySelector('.close-modal');
-  const itemForm = document.getElementById('item-form');
-  const modalTitle = document.getElementById('modal-title');
-
-  const categorySelect = document.getElementById('item-category');
   if (categorySelect) {
     initSearchableDropdown(categorySelect);
   }
@@ -464,10 +460,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- Data Management ---
-  let allMenuItems = [];
-  const menuSearch = document.getElementById('menu-search');
-  const menuCategoryFilter = document.getElementById('menu-category-filter');
-
   async function renderMenu() {
     try {
       const response = await fetch('/api/menu');
@@ -613,6 +605,11 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Error saving item:', err);
     }
   });
+
+  function showNotification(message, type = 'info') {
+    // Basic implementation if no custom toast exists
+    alert(`${type.toUpperCase()}: ${message}`);
+  }
 
   // Initial Render
   renderMenu();

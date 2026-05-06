@@ -125,6 +125,7 @@
               </div>
               <p style="font-size: 16px; color: var(--text-main); font-weight: 500;">Verification code sent!</p>
               <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">We've sent a 6-digit code to <br><strong id="display-email" style="color: var(--text-main);">user@example.com</strong></p>
+              <p style="font-size: 13px; color: var(--primary-color); margin-top: 12px; font-weight: 600; background: #fff3e0; padding: 8px; border-radius: 8px; display: inline-block;">(Temporary: Type 123456 to proceed)</p>
             </div>
 
             <div class="form-group">
@@ -250,6 +251,12 @@
       step2Form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        const otpInput = document.getElementById('otp').value;
+        if (otpInput !== '123456') {
+          showNotification('Invalid verification code. Please use 123456.', 'error');
+          return;
+        }
+        
         try {
           const response = await fetch('/api/auth/register', {
             method: 'POST',
@@ -261,10 +268,12 @@
 
           if (response.ok) {
             localStorage.setItem('user', JSON.stringify(result));
-            alert('Account verified successfully! Welcome to Half Shot Coffee.');
-            window.location.href = 'index.html';
+            showNotification('Account verified successfully! Welcome to Half Shot Coffee.', 'success');
+            setTimeout(() => {
+              window.location.href = 'index.html';
+            }, 1500);
           } else {
-            alert(result.error || 'Registration failed');
+            showNotification(result.error || 'Registration failed', 'error');
             // If email exists, go back to step 1
             if (result.error === 'Email already exists') {
               backBtn.click();
@@ -272,7 +281,7 @@
           }
         } catch (err) {
           console.error('Error during registration:', err);
-          alert('An error occurred. Please try again.');
+          showNotification('An error occurred. Please try again.', 'error');
         }
       });
     });

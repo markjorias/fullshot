@@ -59,8 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const userStr = localStorage.getItem('user');
         
         if (!userStr) {
-          alert('Please sign in to add items to your cart.');
-          window.location.href = 'login.html';
+          showNotification('Please sign in to add items to your cart.', 'info');
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 1500);
           return;
         }
 
@@ -77,10 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
           });
 
           if (response.ok) {
-            alert('Item added to cart!');
+            showNotification('Item added to cart!', 'success');
           } else {
             const res = await response.json();
-            alert(res.error || 'Failed to add item to cart.');
+            showNotification(res.error || 'Failed to add item to cart.', 'error');
           }
         } catch (err) {
           console.error('Error adding to cart:', err);

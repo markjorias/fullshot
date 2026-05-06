@@ -13,8 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   async function fetchCart() {
     const userStr = localStorage.getItem('user');
     if (!userStr) {
-      alert('Please sign in to view your cart.');
-      window.location.href = 'login.html';
+      showNotification('Please sign in to view your cart.', 'info');
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
       return;
     }
 

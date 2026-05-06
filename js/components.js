@@ -119,4 +119,43 @@ function injectComponents() {
   });
 }
 
+window.showNotification = function(message, type = 'info') {
+  let container = document.getElementById('notification-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'notification-container';
+    container.className = 'notification-container';
+    document.body.appendChild(container);
+  }
+
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  
+  let icon = '';
+  if (type === 'success') {
+    icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34c759" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  } else if (type === 'error') {
+    icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+  } else {
+    icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+  }
+
+  notification.innerHTML = `
+    <div class="notification-icon">${icon}</div>
+    <div class="notification-content">
+      <p class="notification-message">${message}</p>
+    </div>
+  `;
+
+  container.appendChild(notification);
+
+  // Auto remove
+  setTimeout(() => {
+    notification.classList.add('fade-out');
+    setTimeout(() => {
+      notification.remove();
+    }, 300);
+  }, 4000);
+};
+
 document.addEventListener('DOMContentLoaded', injectComponents);

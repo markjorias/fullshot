@@ -157,21 +157,23 @@
             }
 
             localStorage.setItem('user', JSON.stringify(result));
-            alert(`Welcome back, ${result.first_name}!`);
+            showNotification(`Welcome back, ${result.first_name}!`, 'success');
             
             // Role-based redirection
-            if (result.role === 'admin') {
-              window.location.href = 'dashboard.html';
-            } else {
-              window.location.href = 'index.html';
-            }
+            setTimeout(() => {
+              if (result.role === 'admin') {
+                window.location.href = 'dashboard.html';
+              } else {
+                window.location.href = 'index.html';
+              }
+            }, 1000);
           } else {
             console.error('Login error:', result.error);
-            alert(result.error || 'Login failed');
+            showNotification(result.error || 'Login failed', 'error');
           }
         } catch (err) {
           console.error('Network or Server error during login:', err);
-          alert('An error occurred. Please try again.');
+          showNotification('An error occurred. Please try again.', 'error');
         }
       });
     });

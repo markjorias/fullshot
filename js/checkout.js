@@ -12,6 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const summaryItemsContainer = document.getElementById('checkout-summary-items');
   const subtotalVal = document.querySelector('.subtotal');
   const totalVal = document.querySelector('.total-price');
+  
+  // --- Pre-fill user data ---
+  const editNameInput = document.getElementById('edit-name');
+  const displayName = document.getElementById('display-name');
+  if (user && editNameInput) {
+    const fullName = `${user.first_name} ${user.last_name}`;
+    editNameInput.value = fullName;
+    if (displayName) displayName.textContent = fullName;
+  }
 
   let currentCart = [];
 
@@ -90,6 +99,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const cancelBtn = document.getElementById('cancel-shipping-btn');
   const saveBtn = document.getElementById('save-shipping-btn');
 
+  // --- Order Type Toggle Logic ---
+  const btnDelivery = document.getElementById('btn-delivery');
+  const btnDineIn = document.getElementById('btn-dine-in');
+  const addressFields = document.getElementById('edit-address-fields');
+  const displayOrderType = document.getElementById('display-order-type');
+  const addressInfo = document.getElementById('display-address-info');
+  
+  let selectedOrderType = 'Delivery';
+
+  if (btnDelivery && btnDineIn) {
+    btnDelivery.addEventListener('click', () => {
+      btnDelivery.classList.add('active');
+      btnDineIn.classList.remove('active');
+      addressFields?.classList.remove('hidden');
+      selectedOrderType = 'Delivery';
+    });
+
+    btnDineIn.addEventListener('click', () => {
+      btnDineIn.classList.add('active');
+      btnDelivery.classList.remove('active');
+      addressFields?.classList.add('hidden');
+      selectedOrderType = 'Dine In';
+    });
+  }
+
   if (editBtn) {
     editBtn.addEventListener('click', () => {
       displaySection.classList.add('hidden');
@@ -109,7 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (saveBtn) {
     saveBtn.addEventListener('click', () => {
       const name = document.getElementById('edit-name').value;
-      document.getElementById('display-name').textContent = name;
+      if (displayName) displayName.textContent = name;
+      
+      if (displayOrderType) {
+        displayOrderType.textContent = selectedOrderType;
+        if (selectedOrderType === 'Dine In') {
+          displayOrderType.classList.remove('hidden');
+          addressInfo?.classList.add('hidden');
+        } else {
+          displayOrderType.classList.add('hidden');
+          addressInfo?.classList.remove('hidden');
+        }
+      }
+
       displaySection.classList.remove('hidden');
       editFormSection.classList.add('hidden');
       editBtn.classList.remove('hidden');
