@@ -29,101 +29,8 @@
         </div>
 
         <div class="cart-items-list">
-          <!-- Item 1 -->
-          <div class="cart-item">
-            <div class="item-checkbox">
-              <input type="checkbox">
-            </div>
-            <div class="item-image">
-              <img src="https://via.placeholder.com/150" alt="Hazelnut Latte">
-            </div>
-            <div class="item-details">
-              <div class="item-info">
-                <span class="item-tag">NON-COFFEE</span>
-                <h3 class="item-name font-display">HAZELNUT LATTE</h3>
-                <div class="item-quantity">
-                  <label>QUANTITY</label>
-                  <div class="quantity-controls">
-                    <button class="qty-btn minus">-</button>
-                    <span class="qty-val">1</span>
-                    <button class="qty-btn plus">+</button>
-                  </div>
-                </div>
-              </div>
-              <div class="item-actions">
-                <button class="remove-btn">
-                  <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 5H17M2 5L3 17C3 18.1046 3.89543 19 5 19H13C14.1046 19 15 18.1046 15 17L16 5M6 5V2C6 1.44772 6.44772 1 7 1H11C11.5523 1 12 1.44772 12 2V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-                <span class="item-price">PHP 100.00</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 2 -->
-          <div class="cart-item">
-            <div class="item-checkbox">
-              <input type="checkbox">
-            </div>
-            <div class="item-image">
-              <img src="https://via.placeholder.com/150" alt="Hazelnut Latte">
-            </div>
-            <div class="item-details">
-              <div class="item-info">
-                <span class="item-tag">NON-COFFEE</span>
-                <h3 class="item-name font-display">HAZELNUT LATTE</h3>
-                <div class="item-quantity">
-                  <label>QUANTITY</label>
-                  <div class="quantity-controls">
-                    <button class="qty-btn minus">-</button>
-                    <span class="qty-val">1</span>
-                    <button class="qty-btn plus">+</button>
-                  </div>
-                </div>
-              </div>
-              <div class="item-actions">
-                <button class="remove-btn">
-                  <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 5H17M2 5L3 17C3 18.1046 3.89543 19 5 19H13C14.1046 19 15 18.1046 15 17L16 5M6 5V2C6 1.44772 6.44772 1 7 1H11C11.5523 1 12 1.44772 12 2V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-                <span class="item-price">PHP 100.00</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 3 -->
-          <div class="cart-item">
-            <div class="item-checkbox">
-              <input type="checkbox">
-            </div>
-            <div class="item-image">
-              <img src="https://via.placeholder.com/150" alt="Hazelnut Latte">
-            </div>
-            <div class="item-details">
-              <div class="item-info">
-                <span class="item-tag">NON-COFFEE</span>
-                <h3 class="item-name font-display">HAZELNUT LATTE</h3>
-                <div class="item-quantity">
-                  <label>QUANTITY</label>
-                  <div class="quantity-controls">
-                    <button class="qty-btn minus">-</button>
-                    <span class="qty-val">1</span>
-                    <button class="qty-btn plus">+</button>
-                  </div>
-                </div>
-              </div>
-              <div class="item-actions">
-                <button class="remove-btn">
-                  <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 5H17M2 5L3 17C3 18.1046 3.89543 19 5 19H13C14.1046 19 15 18.1046 15 17L16 5M6 5V2C6 1.44772 6.44772 1 7 1H11C11.5523 1 12 1.44772 12 2V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-                <span class="item-price">PHP 100.00</span>
-              </div>
-            </div>
-          </div>
+          <!-- Dynamically populated by cart.js -->
+          <p style="text-align: center; padding: 40px;">Loading your selections...</p>
         </div>
       </div>
 
@@ -132,7 +39,7 @@
         <h2 class="summary-title">Order Summary</h2>
         <div class="summary-details">
           <div class="summary-row">
-            <span>SUBTOTAL (3 ITEMS)</span>
+            <span>SUBTOTAL (0 ITEMS)</span>
           </div>
           <div class="summary-row">
             <span>ADDONS</span>
@@ -142,7 +49,7 @@
           </div>
           <div class="summary-row total-row">
             <span class="total-label">TOTAL TO PAY</span>
-            <span class="total-price">PHP100.00</span>
+            <span class="total-price">PHP 0.00</span>
           </div>
         </div>
         <button class="btn-checkout">CHECKOUT & PROCEED TO PAY</button>
@@ -154,5 +61,6 @@
 
   <script src="js/components.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
 </body>
 </html>

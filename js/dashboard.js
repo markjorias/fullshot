@@ -1,6 +1,19 @@
 /* dashboard.js - Admin Dashboard Logic */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // --- Access Control ---
+  const userStr = localStorage.getItem('user');
+  if (!userStr) {
+    window.location.href = 'login.html';
+    return;
+  }
+  const user = JSON.parse(userStr);
+  if (user.role !== 'admin') {
+    alert('Access Denied: Admin privileges required.');
+    window.location.href = 'index.html';
+    return;
+  }
+
   // --- Searchable Dropdown Logic ---
   function initSearchableDropdown(select) {
     if (select.dataset.searchableInit) return;
@@ -170,8 +183,107 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target === 'feature-management') {
         populateFeatureSelectors();
       }
+
+      // Load orders if needed
+      if (target === 'order-management') {
+        loadAdminOrders();
+      }
     });
   });
+
+  // --- Order Management Logic ---
+  const ordersList = document.getElementById('admin-orders-list');
+
+  async function loadAdminOrders() {
+    try {
+      const response = await fetch('/api/orders');
+      const orders = await response.json();
+      renderAdminOrders(orders);
+    } catch (err) {
+      console.error('Error loading orders:', err);
+      ordersList.innerHTML = '<p style="padding: 40px; text-align: center; grid-column: 1/-1;">Error loading orders.</p>';
+    }
+  }
+
+  function renderAdminOrders(orders) {
+    ordersList.innerHTML = '';
+
+    if (orders.length === 0) {
+      ordersList.innerHTML = '<p style="padding: 40px; text-align: center; grid-column: 1/-1;">No orders found.</p>';
+      return;
+    }
+
+    orders.forEach(order => {
+      const card = document.createElement('div');
+      card.className = 'order-admin-card';
+      
+      const statusClass = order.status.toLowerCase();
+      
+      card.innerHTML = `
+        <div class="order-header">
+          <span class="order-id">#${order.id}</span>
+          <span class="order-status status-${statusClass}">${order.status}</span>
+        </div>
+        <div class="order-body">
+          <p><strong>Customer:</strong> ${order.customer_name}</p>
+          <p><strong>Items:</strong> ${order.items_summary || 'No items'}</p>
+          <p class="order-total">Total: PHP ${order.total_price.toFixed(2)}</p>
+          <p style="font-size: 12px; color: #888; margin-top: 8px;">${new Date(order.created_at).toLocaleString()}</p>
+        </div>
+        <div class="order-actions">
+          <select class="status-select" data-id="${order.id}">
+            <option value="Received" ${order.status === 'Received' ? 'selected' : ''}>Received</option>
+            <option value="Confirmed" ${order.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+            <option value="Preparing" ${order.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
+            <option value="Ready" ${order.status === 'Ready' ? 'selected' : ''}>Ready</option>
+            <option value="Completed" ${order.status === 'Completed' ? 'selected' : ''}>Completed</option>
+          </select>
+          <button class="delete-order-btn" data-id="${order.id}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            Delete
+          </button>
+        </div>
+      `;
+      ordersList.appendChild(card);
+    });
+
+    // Add Listeners
+    ordersList.querySelectorAll('.status-select').forEach(select => {
+      select.addEventListener('change', (e) => updateOrderStatus(select.dataset.id, e.target.value));
+    });
+
+    ordersList.querySelectorAll('.delete-order-btn').forEach(btn => {
+      btn.addEventListener('click', () => deleteOrder(btn.dataset.id));
+    });
+  }
+
+  async function updateOrderStatus(id, status) {
+    try {
+      const response = await fetch(`/api/orders/${id}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      if (response.ok) {
+        loadAdminOrders();
+      }
+    } catch (err) {
+      console.error('Error updating status:', err);
+    }
+  }
+
+  async function deleteOrder(id) {
+    if (!confirm(`Are you sure you want to delete order #${id}?`)) return;
+
+    try {
+      const response = await fetch(`/api/orders/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        loadAdminOrders();
+      }
+    } catch (err) {
+      console.error('Error deleting order:', err);
+    }
+  }
 
   // --- Feature Management Logic ---
   const saveFeaturesBtn = document.getElementById('save-features-btn');

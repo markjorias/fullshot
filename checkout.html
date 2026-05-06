@@ -149,47 +149,24 @@
         <div class="order-summary-card">
           <h2 class="summary-title">Order Summary</h2>
 
-          <div class="summary-items">
-            <div class="summary-item">
-              <div class="item-img">
-                <img src="https://via.placeholder.com/64" alt="The Morning Kick">
-              </div>
-              <div class="item-info">
-                <h3 class="item-name">The Morning Kick (Venti)</h3>
-                <p class="item-desc">Double shot espresso, oat milk, sugar-free vanilla</p>
-              </div>
-              <div class="item-price">$6.50</div>
-            </div>
-            <div class="summary-item">
-              <div class="item-img">
-                <img src="https://via.placeholder.com/64" alt="Artisan Croissant">
-              </div>
-              <div class="item-info">
-                <h3 class="item-name">Artisan Croissant</h3>
-                <p class="item-desc">Warm, flaky butter pastry</p>
-              </div>
-              <div class="item-price">$4.75</div>
-            </div>
+          <div class="summary-items" id="checkout-summary-items">
+            <!-- Dynamically populated -->
           </div>
 
           <div class="summary-calculations">
             <div class="calc-row">
               <span>Subtotal</span>
-              <span>$11.25</span>
+              <span class="subtotal">PHP 0.00</span>
             </div>
             <div class="calc-row">
               <span>Shipping</span>
-              <span>$2.00</span>
-            </div>
-            <div class="calc-row discount">
-              <span>Reward Discount (Applied)</span>
-              <span>-$5.00</span>
+              <span>PHP 0.00</span>
             </div>
           </div>
 
           <div class="total-row">
             <span class="total-label">Total</span>
-            <span class="total-value">$8.25</span>
+            <span class="total-price">PHP 0.00</span>
           </div>
 
           <div class="secure-badge">
@@ -204,7 +181,7 @@
             <span>SECURE SSL ENCRYPTED PAYMENT</span>
           </div>
 
-          <button class="btn-complete">Complete Order</button>
+          <button class="btn-complete" id="place-order-btn">Complete Order</button>
 
           <p class="terms-text">BY CLICKING, YOU AGREE TO THE TERMS OF SERVICE.</p>
         </div>
@@ -216,156 +193,6 @@
 
   <script src="js/components.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    (function() {
-      // Payment method selection
-      const paymentOptions = document.querySelectorAll('.payment-option');
-      const cardFormSection = document.getElementById('card-form-section');
-
-      paymentOptions.forEach(option => {
-        option.addEventListener('click', (e) => {
-          paymentOptions.forEach(opt => {
-            opt.classList.remove('selected');
-            const check = opt.querySelector('.check-mark');
-            if (check) check.remove();
-          });
-          option.classList.add('selected');
-          const checkMark = document.createElement('div');
-          checkMark.className = 'check-mark';
-          checkMark.textContent = '✓';
-          option.appendChild(checkMark);
-
-          // Toggle card form visibility
-          if (option.dataset.method === 'card') {
-            cardFormSection.classList.remove('hidden');
-          } else {
-            cardFormSection.classList.add('hidden');
-          }
-        });
-      });
-
-      // Shipping Details Edit Logic
-      const editBtn = document.getElementById('edit-shipping-btn');
-      const displaySection = document.getElementById('shipping-display');
-      const editFormSection = document.getElementById('shipping-edit-form');
-      const cancelBtn = document.getElementById('cancel-shipping-btn');
-      const saveBtn = document.getElementById('save-shipping-btn');
-
-      const displayName = document.getElementById('display-name');
-      const displayAddr1 = document.getElementById('display-address1');
-      const displayAddr2 = document.getElementById('display-address2');
-      const displayAddressInfo = document.getElementById('display-address-info');
-      const displayOrderType = document.getElementById('display-order-type');
-
-      const inputName = document.getElementById('edit-name');
-      const inputAddr1 = document.getElementById('edit-address1');
-      const inputAddr2 = document.getElementById('edit-address2');
-      const editAddressFields = document.getElementById('edit-address-fields');
-
-      const btnDelivery = document.getElementById('btn-delivery');
-      const btnDineIn = document.getElementById('btn-dine-in');
-      const paymentCash = document.getElementById('payment-cash');
-
-      let currentOrderType = 'delivery';
-      let tempOrderType = 'delivery';
-
-      // Hide cash by default initially if delivery is default
-      if (paymentCash && currentOrderType === 'delivery') {
-        paymentCash.classList.add('hidden');
-      }
-
-      function updateCashVisibility(orderType) {
-        if (orderType === 'dine-in') {
-          paymentCash.classList.remove('hidden');
-        } else {
-          paymentCash.classList.add('hidden');
-          if (paymentCash.classList.contains('selected')) {
-             const defaultPayment = document.querySelector('.payment-option[data-method="gcash"]');
-             if(defaultPayment) defaultPayment.click();
-          }
-        }
-      }
-
-      if (editBtn) {
-        editBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          tempOrderType = currentOrderType;
-          
-          if (tempOrderType === 'delivery') {
-            btnDelivery.classList.add('active');
-            btnDineIn.classList.remove('active');
-            editAddressFields.classList.remove('hidden');
-          } else {
-            btnDineIn.classList.add('active');
-            btnDelivery.classList.remove('active');
-            editAddressFields.classList.add('hidden');
-          }
-
-          displaySection.classList.add('hidden');
-          editFormSection.classList.remove('hidden');
-          editBtn.classList.add('hidden');
-        });
-      }
-
-      if (cancelBtn) {
-        cancelBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          inputName.value = displayName.textContent;
-          inputAddr1.value = displayAddr1.textContent;
-          inputAddr2.value = displayAddr2.textContent;
-
-          tempOrderType = currentOrderType;
-          updateCashVisibility(currentOrderType);
-
-          displaySection.classList.remove('hidden');
-          editFormSection.classList.add('hidden');
-          editBtn.classList.remove('hidden');
-        });
-      }
-
-      if (saveBtn) {
-        saveBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          displayName.textContent = inputName.value;
-          displayAddr1.textContent = inputAddr1.value;
-          displayAddr2.textContent = inputAddr2.value;
-
-          currentOrderType = tempOrderType;
-
-          if (currentOrderType === 'delivery') {
-            displayAddressInfo.classList.remove('hidden');
-            displayOrderType.classList.add('hidden');
-          } else {
-            displayAddressInfo.classList.add('hidden');
-            displayOrderType.classList.remove('hidden');
-          }
-
-          displaySection.classList.remove('hidden');
-          editFormSection.classList.add('hidden');
-          editBtn.classList.remove('hidden');
-        });
-      }
-
-      if (btnDelivery && btnDineIn) {
-        btnDelivery.addEventListener('click', (e) => {
-          e.preventDefault();
-          tempOrderType = 'delivery';
-          btnDelivery.classList.add('active');
-          btnDineIn.classList.remove('active');
-          editAddressFields.classList.remove('hidden');
-          updateCashVisibility(tempOrderType);
-        });
-
-        btnDineIn.addEventListener('click', (e) => {
-          e.preventDefault();
-          tempOrderType = 'dine-in';
-          btnDineIn.classList.add('active');
-          btnDelivery.classList.remove('active');
-          editAddressFields.classList.add('hidden');
-          updateCashVisibility(tempOrderType);
-        });
-      }
-    })();
-  </script>
+  <script src="js/checkout.js"></script>
 </body>
 </html>

@@ -61,10 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (variations.length > 0) {
       variationGrid.innerHTML = variations.map((v, i) => 
-        `<button class="option-btn ${i === 0 ? 'active' : ''}" data-price="${v.price}">${v.label}${v.price > 0 ? ` (₱${v.price})` : ''}</button>`
+        `<button class="option-btn ${i === 0 ? 'active' : ''}" data-price="${v.price}" data-label="${v.label}">${v.label}${v.price > 0 ? ` (₱${v.price})` : ''}</button>`
       ).join('');
       variationSection.style.display = 'block';
     } else {
+      variationGrid.innerHTML = '';
       variationSection.style.display = 'none';
     }
 
@@ -75,10 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sizes.length > 0) {
       sizeGrid.innerHTML = sizes.map((s, i) => 
-        `<button class="option-btn ${i === 0 ? 'active' : ''}" data-price="${s.price}" style="width: auto; min-width: 136px; padding: 0 20px;">${s.label}${s.price > 0 ? ` (₱${s.price})` : ''}</button>`
+        `<button class="option-btn ${i === 0 ? 'active' : ''}" data-price="${s.price}" data-label="${s.label}" style="width: auto; min-width: 136px; padding: 0 20px;">${s.label}${s.price > 0 ? ` (₱${s.price})` : ''}</button>`
       ).join('');
       sizeSection.style.display = 'block';
     } else {
+      sizeGrid.innerHTML = '';
       sizeSection.style.display = 'none';
     }
 
@@ -94,17 +96,20 @@ document.addEventListener('DOMContentLoaded', () => {
           const selectedAddons = allAddons.filter(a => addonIds.includes(a.id));
           
           addonsGrid.innerHTML = selectedAddons.map(a => 
-            `<button class="option-btn multi-select" data-price="${a.price}" style="width: auto; padding: 0 20px;">${a.name} (+₱${a.price})</button>`
+            `<button class="option-btn multi-select" data-price="${a.price}" data-label="${a.name}" style="width: auto; padding: 0 20px;">${a.name} (+₱${a.price})</button>`
           ).join('');
           addonsSection.style.display = 'block';
         } catch (err) {
           console.error('Error fetching addons:', err);
+          addonsGrid.innerHTML = '';
           addonsSection.style.display = 'none';
         }
       } else {
+        addonsGrid.innerHTML = '';
         addonsSection.style.display = 'none';
       }
     } else {
+      addonsGrid.innerHTML = '';
       addonsSection.style.display = 'none';
     }
 
@@ -134,6 +139,62 @@ document.addEventListener('DOMContentLoaded', () => {
     // You might want to add buttons to your HTML later, but for now we'll support the manual check
     
     // If you add plus/minus buttons in item_details.html, they should call updateTotalPrice()
+    
+    // Add to Cart Button Logic
+    const addToCartBtn = document.querySelector('.quantity-section .btn-primary');
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener('click', async () => {
+        const userStr = localStorage.getItem('user');
+        if (!userStr) {
+          alert('Please sign in to add items to your cart.');
+          window.location.href = 'login.html';
+          return;
+        }
+
+        const user = JSON.parse(userStr);
+        const qtyInput = document.querySelector('.qty-input');
+        const quantity = parseInt(qtyInput.textContent) || 1;
+        
+        const activeVariation = document.querySelector('.variation-section .option-btn.active');
+        const activeSize = document.querySelector('.size-section .option-btn.active');
+
+        // Calculate Unit Price
+        let activePrice = currentBasePrice;
+        if (activeSize && parseFloat(activeSize.dataset.price) > 0) activePrice = parseFloat(activeSize.dataset.price);
+        if (activeVariation && parseFloat(activeVariation.dataset.price) > 0) activePrice = parseFloat(activeVariation.dataset.price);
+        
+        let addonsSum = 0;
+        document.querySelectorAll('.addons-section .option-btn.active').forEach(btn => {
+          addonsSum += parseFloat(btn.dataset.price) || 0;
+        });
+
+        const cartItemData = {
+          menu_item_id: itemId,
+          quantity: quantity,
+          variation: activeVariation ? activeVariation.dataset.label : null,
+          size: activeSize ? activeSize.dataset.label : null,
+          item_price: activePrice + addonsSum
+        };
+
+        try {
+          const response = await fetch(`/api/cart/${user.id}/add`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(cartItemData)
+          });
+
+          if (response.ok) {
+            alert('Item added to cart!');
+          } else {
+            const res = await response.json();
+            alert(res.error || 'Failed to add item to cart.');
+          }
+        } catch (err) {
+          console.error('Error adding to cart:', err);
+          alert('An error occurred. Please try again.');
+        }
+      });
+    }
   }
 
   function updateTotalPrice() {

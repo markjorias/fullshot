@@ -113,24 +113,9 @@
 
       <!-- Order Management Section -->
       <section id="order-management" class="content-section">
-        <div class="order-grid">
-          <!-- Dynamically populated -->
-          <div class="order-admin-card">
-            <div class="order-header">
-              <span class="order-id">#ORD-001</span>
-              <span class="order-status status-pending">Received</span>
-            </div>
-            <div class="order-body">
-              <p><strong>Customer:</strong> John Doe</p>
-              <p><strong>Items:</strong> 1x Matcha Latte, 2x Espresso</p>
-              <p class="order-total">Total: PHP 350.00</p>
-            </div>
-            <div class="order-actions">
-              <button class="status-btn btn-confirm">Confirm</button>
-              <button class="status-btn btn-preparing">Preparing</button>
-              <button class="status-btn btn-ready">Ready</button>
-            </div>
-          </div>
+        <div class="order-grid" id="admin-orders-list">
+          <!-- Dynamically populated by dashboard.js -->
+          <p style="padding: 40px; text-align: center; grid-column: 1/-1;">Loading orders...</p>
         </div>
       </section>
 

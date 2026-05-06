@@ -44,10 +44,48 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
           moreSection.appendChild(card);
         });
+
+        // Add event listeners to the new cards
+        moreSection.querySelectorAll('.add-btn').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const itemId = btn.dataset.id;
+            await addToCart(itemId);
+          });
+        });
       }
 
     } catch (err) {
       console.error('Error loading featured items:', err);
+    }
+  }
+
+  async function addToCart(itemId) {
+    const userStr = localStorage.getItem('user');
+    if (!userStr) {
+      alert('Please sign in to add items to your cart.');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const user = JSON.parse(userStr);
+
+    try {
+      const response = await fetch(`/api/cart/${user.id}/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          menu_item_id: itemId,
+          quantity: 1
+        })
+      });
+
+      if (response.ok) {
+        alert('Item added to cart!');
+      } else {
+        alert('Failed to add item to cart.');
+      }
+    } catch (err) {
+      console.error('Error adding to cart:', err);
     }
   }
 
@@ -56,8 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageElement = section.querySelector('.bestseller-image img');
     const titleElement = section.querySelector('.section-title');
     const descElement = section.querySelector('.section-desc');
+    const plusBtn = section.querySelector('.add-btn');
 
     if (!tabContainer || !imageElement) return;
+
+    let currentItemId = items[0] ? items[0].id : null;
 
     tabContainer.innerHTML = '';
     items.forEach((item, index) => {
@@ -76,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         imageElement.src = item.image_url || 'https://via.placeholder.com/500';
         imageElement.alt = item.name;
         imageElement.classList.add('fade-in');
+        currentItemId = item.id;
       };
 
       tab.addEventListener('click', updateTab);
@@ -83,6 +125,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       tabContainer.appendChild(tab);
     });
+
+    // Handle the plus button for the main featured image
+    if (plusBtn) {
+      plusBtn.addEventListener('click', async () => {
+        if (currentItemId) await addToCart(currentItemId);
+      });
+    }
 
     // Set initial state (first item)
     if (items[0]) {

@@ -50,6 +50,43 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       menuGrid.appendChild(card);
     });
+
+    // Add event listeners to buttons
+    menuGrid.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const itemId = btn.dataset.id;
+        const userStr = localStorage.getItem('user');
+        
+        if (!userStr) {
+          alert('Please sign in to add items to your cart.');
+          window.location.href = 'login.html';
+          return;
+        }
+
+        const user = JSON.parse(userStr);
+
+        try {
+          const response = await fetch(`/api/cart/${user.id}/add`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              menu_item_id: itemId,
+              quantity: 1
+            })
+          });
+
+          if (response.ok) {
+            alert('Item added to cart!');
+          } else {
+            const res = await response.json();
+            alert(res.error || 'Failed to add item to cart.');
+          }
+        } catch (err) {
+          console.error('Error adding to cart:', err);
+        }
+      });
+    });
   }
 
   // Initial load

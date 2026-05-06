@@ -24,6 +24,7 @@ db.serialize(() => {
     console.log('Initializing Database...');
     runSqlFile('schema_menu.sql');
     runSqlFile('schema_orders.sql');
+    runSqlFile('schema_users.sql');
 });
 
 db.close();

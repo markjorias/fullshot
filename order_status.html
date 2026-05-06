@@ -77,36 +77,8 @@
         <div class="order-card">
           <h2 class="card-title">Order Details</h2>
           <div class="order-items-list">
-            <div class="order-item">
-              <div class="item-image">
-                <img src="https://via.placeholder.com/150" alt="Matcha Latte">
-              </div>
-              <div class="item-info-row">
-                <div class="item-main-info">
-                  <h3 class="item-name">Matcha Latte</h3>
-                  <p class="item-sub-details">Details</p>
-                  <p class="item-price">Price</p>
-                </div>
-                <div class="item-quantity-info">
-                  <span>Quantity: 1</span>
-                </div>
-              </div>
-            </div>
-            <div class="order-item">
-              <div class="item-image">
-                <img src="https://via.placeholder.com/150" alt="Matcha Latte">
-              </div>
-              <div class="item-info-row">
-                <div class="item-main-info">
-                  <h3 class="item-name">Matcha Latte</h3>
-                  <p class="item-sub-details">Details</p>
-                  <p class="item-price">Price</p>
-                </div>
-                <div class="item-quantity-info">
-                  <span>Quantity: 1</span>
-                </div>
-              </div>
-            </div>
+            <!-- Dynamically populated by order_status.js -->
+            <p style="text-align: center; padding: 40px;">Loading order details...</p>
           </div>
         </div>
       </div>
@@ -117,8 +89,8 @@
         <div class="order-card sidebar-card time-card">
           <h2 class="card-title-small">Estimated Ready Time</h2>
           <div class="time-content">
-            <span class="ready-time">10:45 AM</span>
-            <span class="pickup-estimate">Pickup in ~10 mins</span>
+            <span class="ready-time">--:--</span>
+            <span class="pickup-estimate">Pickup in ~15 mins</span>
           </div>
         </div>
 
@@ -149,5 +121,6 @@
 
   <script src="js/components.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/order_status.js"></script>
 </body>
 </html>

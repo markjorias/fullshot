@@ -16,7 +16,13 @@
   height: 340px;
   background-color: #d9d9d9;
   border-radius: 10px;
+  background-size: cover;
+  background-position: center;
 }
+
+.carousel-item:nth-child(1) { background-image: url('../assets/images/brand/diverse1.jpg'); }
+.carousel-item:nth-child(2) { background-image: url('../assets/images/brand/diverse2.jpg'); }
+.carousel-item:nth-child(3) { background-image: url('../assets/images/brand/diverse3.jpg'); }
 
 .what-we-offer {
   padding-top: 100px;

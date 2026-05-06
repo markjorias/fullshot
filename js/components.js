@@ -60,6 +60,49 @@ function injectComponents() {
 
   if (headerPlaceholder) {
     headerPlaceholder.innerHTML = components.header;
+    
+    // Auth dynamic UI
+    const userStr = localStorage.getItem('user');
+    const authBtn = headerPlaceholder.querySelector('.header-actions .btn-primary');
+    
+    if (userStr && authBtn) {
+      const user = JSON.parse(userStr);
+      const navLinks = headerPlaceholder.querySelector('nav ul');
+      const cartIcon = headerPlaceholder.querySelector('.cart-icon');
+      
+      if (navLinks) {
+        navLinks.innerHTML = `
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="about.html">About</a></li>
+        `;
+        
+        if (user.role !== 'admin') {
+          navLinks.innerHTML += '<li><a href="my_orders.html">Orders</a></li>';
+        }
+      }
+
+      if (user.role === 'admin' && cartIcon) {
+        // Replace cart icon with dashboard icon
+        cartIcon.href = 'dashboard.html';
+        cartIcon.innerHTML = `
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        `;
+      }
+
+      authBtn.textContent = 'Logout';
+      authBtn.href = '#';
+      authBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('user');
+        window.location.reload();
+      });
+    }
   }
   if (footerPlaceholder) {
     footerPlaceholder.innerHTML = components.footer;

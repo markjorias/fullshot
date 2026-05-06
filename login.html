@@ -106,5 +106,75 @@
 
   <script src="js/components.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.querySelector('.register-form');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const togglePassword = document.querySelector('.toggle-password');
+      const rememberCheckbox = document.getElementById('remember');
+
+      // --- Remember Me: Load saved email ---
+      const savedEmail = localStorage.getItem('remembered_email');
+      if (savedEmail) {
+        emailInput.value = savedEmail;
+        rememberCheckbox.checked = true;
+      }
+
+      // --- Toggle Password Visibility ---
+      togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Optional: Change icon appearance
+        togglePassword.style.opacity = type === 'text' ? '1' : '0.5';
+      });
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const loginData = {
+          email: emailInput.value,
+          password: passwordInput.value
+        };
+
+        try {
+          console.log('Attempting login for:', loginData.email);
+          const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(loginData)
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            // Handle Remember Me
+            if (rememberCheckbox.checked) {
+              localStorage.setItem('remembered_email', emailInput.value);
+            } else {
+              localStorage.removeItem('remembered_email');
+            }
+
+            localStorage.setItem('user', JSON.stringify(result));
+            alert(`Welcome back, ${result.first_name}!`);
+            
+            // Role-based redirection
+            if (result.role === 'admin') {
+              window.location.href = 'dashboard.html';
+            } else {
+              window.location.href = 'index.html';
+            }
+          } else {
+            console.error('Login error:', result.error);
+            alert(result.error || 'Login failed');
+          }
+        } catch (err) {
+          console.error('Network or Server error during login:', err);
+          alert('An error occurred. Please try again.');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
