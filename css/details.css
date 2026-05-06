@@ -69,25 +69,42 @@
 .quantity-controls {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
 }
 
-.qty-input {
-  width: 56px;
-  height: 48px;
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
+.qty-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: white;
+  font-size: 20px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--light-bg);
-  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.qty-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.qty-input {
+  font-size: 18px;
+  font-weight: 700;
+  width: 30px;
+  text-align: center;
 }
 
 .price-display {
-  font-size: 24px;
-  font-weight: 500;
   margin-left: auto;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--primary-color);
 }
 
 @media (max-width: 768px) {

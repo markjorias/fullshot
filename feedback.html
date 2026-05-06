@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback | Half Shot Coffee</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/feedback.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <section class="feedback-hero" data-header-theme="dark">
+      <div class="hero-bg">
+        <img src="https://www.figma.com/api/mcp/asset/ee08268c-5d80-4b85-b42d-563505f646f7" alt="Feedback Hero Background">
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="container hero-content">
+        <h1 class="hero-tagline">We’d <span class="font-display">love</span> to hear <span class="font-display">from you!</span></h1>
+      </div>
+    </section>
+
+    <section class="feedback-section">
+      <div class="container feedback-container">
+        <div class="feedback-header">
+          <p class="feedback-intro">
+            ☕ Thank you for visiting Half Shot Coffee! Your feedback means a lot to us as we continue brewing better experiences for our customers. 🤎
+          </p>
+        </div>
+
+        <form id="feedback-form" class="feedback-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required placeholder="Your name">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email address *</label>
+              <input type="email" id="email" name="email" required placeholder="Your email">
+            </div>
+
+            <div class="form-group">
+              <label>Was this your first time at the restaurant? *</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="first_time" value="yes" required>
+                  <span class="radio-custom"></span>
+                  <span>Yes</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="first_time" value="no" required>
+                  <span class="radio-custom"></span>
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Was the service friendly and welcoming? *</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="service" value="yes" required>
+                  <span class="radio-custom"></span>
+                  <span>Yes</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="service" value="no" required>
+                  <span class="radio-custom"></span>
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label>How would you rate the value of our food and drinks? *</label>
+              <div class="rating-group">
+                <label class="rating-item">
+                  <input type="radio" name="rating" value="1" required>
+                  <div class="rating-box">
+                    <span class="rating-number">1</span>
+                    <span class="rating-text">Poor Value</span>
+                  </div>
+                </label>
+                <label class="rating-item">
+                  <input type="radio" name="rating" value="2">
+                  <div class="rating-box">
+                    <span class="rating-number">2</span>
+                    <span class="rating-text">Fair</span>
+                  </div>
+                </label>
+                <label class="rating-item">
+                  <input type="radio" name="rating" value="3">
+                  <div class="rating-box">
+                    <span class="rating-number">3</span>
+                    <span class="rating-text">Good</span>
+                  </div>
+                </label>
+                <label class="rating-item">
+                  <input type="radio" name="rating" value="4">
+                  <div class="rating-box">
+                    <span class="rating-number">4</span>
+                    <span class="rating-text">Great</span>
+                  </div>
+                </label>
+                <label class="rating-item">
+                  <input type="radio" name="rating" value="5">
+                  <div class="rating-box">
+                    <span class="rating-number">5</span>
+                    <span class="rating-text">Excellent</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label>Would you recommend us to your family and friends? *</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="recommend" value="yes" required>
+                  <span class="radio-custom"></span>
+                  <span>Yes, absolutely!</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="recommend" value="no" required>
+                  <span class="radio-custom"></span>
+                  <span>Maybe next time</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="comments">Suggestions or Comments</label>
+              <textarea id="comments" name="comments" rows="5" placeholder="Share your thoughts with us..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send Feedback</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

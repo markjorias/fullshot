@@ -125,15 +125,15 @@
             <div class="feature-selectors">
               <div class="form-group">
                 <label>Bestseller 1</label>
-                <select class="feature-select" data-section="bestseller" data-index="0"></select>
+                <select class="feature-select" id="bestseller-0" data-section="bestseller" data-index="0"></select>
               </div>
               <div class="form-group">
                 <label>Bestseller 2</label>
-                <select class="feature-select" data-section="bestseller" data-index="1"></select>
+                <select class="feature-select" id="bestseller-1" data-section="bestseller" data-index="1"></select>
               </div>
               <div class="form-group">
                 <label>Bestseller 3</label>
-                <select class="feature-select" data-section="bestseller" data-index="2"></select>
+                <select class="feature-select" id="bestseller-2" data-section="bestseller" data-index="2"></select>
               </div>
             </div>
           </div>
@@ -144,15 +144,15 @@
             <div class="feature-selectors">
               <div class="form-group">
                 <label>Snack 1</label>
-                <select class="feature-select" data-section="snacks" data-index="0"></select>
+                <select class="feature-select" id="snacks-0" data-section="snacks" data-index="0"></select>
               </div>
               <div class="form-group">
                 <label>Snack 2</label>
-                <select class="feature-select" data-section="snacks" data-index="1"></select>
+                <select class="feature-select" id="snacks-1" data-section="snacks" data-index="1"></select>
               </div>
               <div class="form-group">
                 <label>Snack 3</label>
-                <select class="feature-select" data-section="snacks" data-index="2"></select>
+                <select class="feature-select" id="snacks-2" data-section="snacks" data-index="2"></select>
               </div>
             </div>
           </div>
@@ -163,19 +163,19 @@
             <div class="feature-selectors grid-4">
               <div class="form-group">
                 <label>Item 1</label>
-                <select class="feature-select" data-section="more_to_try" data-index="0"></select>
+                <select class="feature-select" id="more-0" data-section="more_to_try" data-index="0"></select>
               </div>
               <div class="form-group">
                 <label>Item 2</label>
-                <select class="feature-select" data-section="more_to_try" data-index="1"></select>
+                <select class="feature-select" id="more-1" data-section="more_to_try" data-index="1"></select>
               </div>
               <div class="form-group">
                 <label>Item 3</label>
-                <select class="feature-select" data-section="more_to_try" data-index="2"></select>
+                <select class="feature-select" id="more-2" data-section="more_to_try" data-index="2"></select>
               </div>
               <div class="form-group">
                 <label>Item 4</label>
-                <select class="feature-select" data-section="more_to_try" data-index="3"></select>
+                <select class="feature-select" id="more-3" data-section="more_to_try" data-index="3"></select>
               </div>
             </div>
           </div>
@@ -220,14 +220,23 @@
             <option value="ADD-ONS">ADD-ONS</option>
           </select>
         </div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="item-variation">Variation (e.g. Hot, Iced)</label>
-            <input type="text" id="item-variation">
+        <div class="options-container">
+          <div class="options-header">
+            <label>Variations</label>
+            <button type="button" class="btn-add-option" id="add-variation-btn">+ Add Variation</button>
           </div>
-          <div class="form-group">
-            <label for="item-size">Size (e.g. 16oz, 22oz)</label>
-            <input type="text" id="item-size" placeholder="16oz">
+          <div id="variations-list" class="options-list">
+            <!-- Dynamic rows: Label, Price -->
+          </div>
+        </div>
+        
+        <div class="options-container">
+          <div class="options-header">
+            <label>Sizes</label>
+            <button type="button" class="btn-add-option" id="add-size-btn">+ Add Size</button>
+          </div>
+          <div id="sizes-list" class="options-list">
+            <!-- Dynamic rows: Label, Price -->
           </div>
         </div>
         <div class="form-group">

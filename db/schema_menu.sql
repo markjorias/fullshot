@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS menu_items (
     name TEXT NOT NULL,
     description TEXT,
     price REAL NOT NULL,
-    category TEXT CHECK(category IN ('ICE COFFEE', 'HOT DRINKS', 'NON COFFEE', 'LIGHT BITE SNACKS', 'NINETY-NINERS', 'ADD-ONS')),
+    category TEXT CHECK(category IN ('ICE COFFEE', 'HOT DRINKS', 'NON COFFEE', 'LIGHT BITE SNACKS', 'NINETY-NINERS', 'ADD-ONS', 'RICE MEALS')),
     image_url TEXT,
     variations TEXT, -- Comma-separated or JSON
     sizes TEXT,      -- Comma-separated or JSON
@@ -14,6 +14,16 @@ CREATE TABLE IF NOT EXISTS menu_items (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS featured_items (
+    section TEXT PRIMARY KEY, -- 'bestseller', 'snacks', 'more_to_try'
+    item_ids TEXT NOT NULL    -- JSON array of menu_item IDs
+);
+
+-- Initial featured items
+INSERT OR IGNORE INTO featured_items (section, item_ids) VALUES ('bestseller', '[]');
+INSERT OR IGNORE INTO featured_items (section, item_ids) VALUES ('snacks', '[]');
+INSERT OR IGNORE INTO featured_items (section, item_ids) VALUES ('more_to_try', '[]');
 
 -- Initial data seed
 INSERT INTO menu_items (name, description, price, category, image_url) 

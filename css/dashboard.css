@@ -642,6 +642,92 @@
   display: none;
 }
 
+/* Dynamic Options Interface */
+.options-container {
+  margin-bottom: 24px;
+}
+
+.options-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.options-header label {
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #999;
+  letter-spacing: 0.1em;
+}
+
+.btn-add-option {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-add-option:hover {
+  background-color: var(--dark-bg);
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.option-row input[type="text"] {
+  flex: 2;
+  padding: 12px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.option-row input[type="number"] {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.btn-remove-option {
+  background: #ff3b30;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: opacity 0.2s;
+}
+
+.btn-remove-option:hover {
+  opacity: 0.8;
+}
+
 @media (max-width: 1024px) {
   .feature-grid {
     grid-template-columns: 1fr;

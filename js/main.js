@@ -3,17 +3,89 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Half Shot Coffee site initialized.');
 
-  // Example: Handle tab switching in Bestseller sections
-  const tabs = document.querySelectorAll('.tab');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const parent = tab.closest('.selection-tabs');
-      if (parent) {
-        parent.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
+  // --- Featured Products Loader ---
+  async function loadFeaturedItems() {
+    try {
+      const response = await fetch('/api/featured?full=true');
+      const featured = await response.json();
+
+      // 1. Populate Bestseller Section (Drinks)
+      const drinkSection = document.getElementById('featured-drinks-section');
+      if (drinkSection && featured.bestseller && featured.bestseller.length > 0) {
+        renderFeaturedSection(drinkSection, featured.bestseller);
       }
+
+      // 2. Populate Our Snacks Section
+      const snackSection = document.getElementById('featured-snacks-section');
+      if (snackSection && featured.snacks && featured.snacks.length > 0) {
+        renderFeaturedSection(snackSection, featured.snacks);
+      }
+
+      // 3. Populate More to Try Section
+      const moreSection = document.getElementById('featured-more-grid');
+      if (moreSection && featured.more_to_try && featured.more_to_try.length > 0) {
+        moreSection.innerHTML = '';
+        featured.more_to_try.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'menu-card';
+          card.innerHTML = `
+            <div class="menu-card-bg">
+              <img src="${item.image_url || 'https://via.placeholder.com/300'}" alt="${item.name}">
+              <div class="menu-card-overlay"></div>
+            </div>
+            <div class="menu-card-content">
+              <div class="menu-card-info">
+                <h4>${item.name}</h4>
+                <p>${item.description || ''}</p>
+                <span class="price">PHP ${item.price.toFixed(2)}</span>
+              </div>
+              <button class="add-btn" data-id="${item.id}"><img src="assets/images/icons/plus.svg" alt="Add"></button>
+            </div>
+          `;
+          moreSection.appendChild(card);
+        });
+      }
+
+    } catch (err) {
+      console.error('Error loading featured items:', err);
+    }
+  }
+
+  function renderFeaturedSection(section, items) {
+    const tabContainer = section.querySelector('.selection-tabs');
+    const imageElement = section.querySelector('.bestseller-image img');
+    const titleElement = section.querySelector('.section-title');
+    const descElement = section.querySelector('.section-desc');
+
+    if (!tabContainer || !imageElement) return;
+
+    tabContainer.innerHTML = '';
+    items.forEach((item, index) => {
+      const tab = document.createElement('span');
+      tab.className = 'tab' + (index === 0 ? ' active' : '');
+      tab.textContent = item.name.toUpperCase();
+      
+      tab.addEventListener('click', () => {
+        section.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Update Image and Text
+        imageElement.src = item.image_url || 'https://via.placeholder.com/500';
+        imageElement.alt = item.name;
+        // Optionally update title/desc if desired, but request specifically mentioned image
+      });
+
+      tabContainer.appendChild(tab);
     });
-  });
+
+    // Set initial state (first item)
+    if (items[0]) {
+      imageElement.src = items[0].image_url || 'https://via.placeholder.com/500';
+      imageElement.alt = items[0].name;
+    }
+  }
+
+  loadFeaturedItems();
 
   // Adaptive Header Theme
   const header = document.getElementById('main-header');

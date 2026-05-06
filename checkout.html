@@ -20,15 +20,48 @@
         <h1 class="page-title font-display">Review and Pay.</h1>
 
         <!-- Shipping Details -->
-        <section class="checkout-section shipping-details">
+        <section class="checkout-section shipping-details" id="shipping-details-section">
           <div class="section-header">
             <h2 class="section-title-small">SHIPPING DETAILS</h2>
-            <button class="edit-link">EDIT</button>
+            <button type="button" class="edit-link" id="edit-shipping-btn">EDIT</button>
           </div>
-          <div class="section-content">
-            <p class="customer-name">Juan Dela Cruz</p>
-            <p>Address 1</p>
-            <p>Address Line 2</p>
+          
+          <!-- Display Mode -->
+          <div class="section-content" id="shipping-display">
+            <p class="order-type-display hidden" id="display-order-type" style="font-weight: 700; color: var(--primary-color);">Dine In</p>
+            <div id="display-address-info">
+              <p class="customer-name" id="display-name">Juan Dela Cruz</p>
+              <p id="display-address1">Address 1</p>
+              <p id="display-address2">Address Line 2</p>
+            </div>
+          </div>
+
+          <!-- Edit Mode (Form) -->
+          <div class="section-content shipping-form hidden" id="shipping-edit-form">
+            <!-- Order Type Toggle -->
+            <div class="order-type-toggle" style="margin-bottom: 24px;">
+              <button type="button" class="toggle-btn active" id="btn-delivery">Delivery</button>
+              <button type="button" class="toggle-btn" id="btn-dine-in">Dine In</button>
+            </div>
+            
+            <div id="edit-address-fields">
+              <div class="form-group">
+                <label for="edit-name">Name</label>
+                <input type="text" id="edit-name" value="Juan Dela Cruz">
+              </div>
+              <div class="form-group">
+                <label for="edit-address1">Address 1</label>
+                <input type="text" id="edit-address1" value="Address 1">
+              </div>
+              <div class="form-group">
+                <label for="edit-address2">Address Line 2</label>
+                <input type="text" id="edit-address2" value="Address Line 2">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" id="cancel-shipping-btn">Cancel</button>
+              <button type="button" class="btn-save" id="save-shipping-btn">Save</button>
+            </div>
           </div>
         </section>
 
@@ -61,16 +94,22 @@
         <section class="checkout-section payment-method">
           <h2 class="section-title-small">Payment Method</h2>
           <div class="payment-options">
-            <div class="payment-option selected">
+            <div class="payment-option selected" data-method="gcash">
               <div class="payment-logo gcash-logo">GCash</div>
               <div class="check-mark">✓</div>
             </div>
-            <div class="payment-option">
+            <div class="payment-option" data-method="maya">
               <div class="payment-logo maya-logo">Maya</div>
+            </div>
+            <div class="payment-option" data-method="card">
+              <div class="payment-logo card-logo">Card</div>
+            </div>
+            <div class="payment-option" id="payment-cash" data-method="cash">
+              <div class="payment-logo cash-logo">Cash</div>
             </div>
           </div>
 
-          <div class="card-payment-form">
+          <div class="card-payment-form hidden" id="card-form-section">
             <div class="form-header">
               <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -78,6 +117,12 @@
                   fill="#333333" />
               </svg>
               <span>PAY WITH CARD</span>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label for="name-on-card">Name on Card</label>
+                <input type="text" id="name-on-card" placeholder="Name on Card">
+              </div>
             </div>
             <div class="form-row">
               <div class="form-group full">
@@ -172,11 +217,13 @@
   <script src="js/components.js"></script>
   <script src="js/main.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    (function() {
       // Payment method selection
       const paymentOptions = document.querySelectorAll('.payment-option');
+      const cardFormSection = document.getElementById('card-form-section');
+
       paymentOptions.forEach(option => {
-        option.addEventListener('click', () => {
+        option.addEventListener('click', (e) => {
           paymentOptions.forEach(opt => {
             opt.classList.remove('selected');
             const check = opt.querySelector('.check-mark');
@@ -187,27 +234,138 @@
           checkMark.className = 'check-mark';
           checkMark.textContent = '✓';
           option.appendChild(checkMark);
+
+          // Toggle card form visibility
+          if (option.dataset.method === 'card') {
+            cardFormSection.classList.remove('hidden');
+          } else {
+            cardFormSection.classList.add('hidden');
+          }
         });
       });
-    });
+
+      // Shipping Details Edit Logic
+      const editBtn = document.getElementById('edit-shipping-btn');
+      const displaySection = document.getElementById('shipping-display');
+      const editFormSection = document.getElementById('shipping-edit-form');
+      const cancelBtn = document.getElementById('cancel-shipping-btn');
+      const saveBtn = document.getElementById('save-shipping-btn');
+
+      const displayName = document.getElementById('display-name');
+      const displayAddr1 = document.getElementById('display-address1');
+      const displayAddr2 = document.getElementById('display-address2');
+      const displayAddressInfo = document.getElementById('display-address-info');
+      const displayOrderType = document.getElementById('display-order-type');
+
+      const inputName = document.getElementById('edit-name');
+      const inputAddr1 = document.getElementById('edit-address1');
+      const inputAddr2 = document.getElementById('edit-address2');
+      const editAddressFields = document.getElementById('edit-address-fields');
+
+      const btnDelivery = document.getElementById('btn-delivery');
+      const btnDineIn = document.getElementById('btn-dine-in');
+      const paymentCash = document.getElementById('payment-cash');
+
+      let currentOrderType = 'delivery';
+      let tempOrderType = 'delivery';
+
+      // Hide cash by default initially if delivery is default
+      if (paymentCash && currentOrderType === 'delivery') {
+        paymentCash.classList.add('hidden');
+      }
+
+      function updateCashVisibility(orderType) {
+        if (orderType === 'dine-in') {
+          paymentCash.classList.remove('hidden');
+        } else {
+          paymentCash.classList.add('hidden');
+          if (paymentCash.classList.contains('selected')) {
+             const defaultPayment = document.querySelector('.payment-option[data-method="gcash"]');
+             if(defaultPayment) defaultPayment.click();
+          }
+        }
+      }
+
+      if (editBtn) {
+        editBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          tempOrderType = currentOrderType;
+          
+          if (tempOrderType === 'delivery') {
+            btnDelivery.classList.add('active');
+            btnDineIn.classList.remove('active');
+            editAddressFields.classList.remove('hidden');
+          } else {
+            btnDineIn.classList.add('active');
+            btnDelivery.classList.remove('active');
+            editAddressFields.classList.add('hidden');
+          }
+
+          displaySection.classList.add('hidden');
+          editFormSection.classList.remove('hidden');
+          editBtn.classList.add('hidden');
+        });
+      }
+
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          inputName.value = displayName.textContent;
+          inputAddr1.value = displayAddr1.textContent;
+          inputAddr2.value = displayAddr2.textContent;
+
+          tempOrderType = currentOrderType;
+          updateCashVisibility(currentOrderType);
+
+          displaySection.classList.remove('hidden');
+          editFormSection.classList.add('hidden');
+          editBtn.classList.remove('hidden');
+        });
+      }
+
+      if (saveBtn) {
+        saveBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          displayName.textContent = inputName.value;
+          displayAddr1.textContent = inputAddr1.value;
+          displayAddr2.textContent = inputAddr2.value;
+
+          currentOrderType = tempOrderType;
+
+          if (currentOrderType === 'delivery') {
+            displayAddressInfo.classList.remove('hidden');
+            displayOrderType.classList.add('hidden');
+          } else {
+            displayAddressInfo.classList.add('hidden');
+            displayOrderType.classList.remove('hidden');
+          }
+
+          displaySection.classList.remove('hidden');
+          editFormSection.classList.add('hidden');
+          editBtn.classList.remove('hidden');
+        });
+      }
+
+      if (btnDelivery && btnDineIn) {
+        btnDelivery.addEventListener('click', (e) => {
+          e.preventDefault();
+          tempOrderType = 'delivery';
+          btnDelivery.classList.add('active');
+          btnDineIn.classList.remove('active');
+          editAddressFields.classList.remove('hidden');
+          updateCashVisibility(tempOrderType);
+        });
+
+        btnDineIn.addEventListener('click', (e) => {
+          e.preventDefault();
+          tempOrderType = 'dine-in';
+          btnDineIn.classList.add('active');
+          btnDelivery.classList.remove('active');
+          editAddressFields.classList.add('hidden');
+          updateCashVisibility(tempOrderType);
+        });
+      }
+    })();
   </script>
 </body>
-
-</html>
-paymentOptions.forEach(opt => {
-opt.classList.remove('selected');
-const check = opt.querySelector('.check-mark');
-if (check) check.remove();
-});
-option.classList.add('selected');
-const checkMark = document.createElement('div');
-checkMark.className = 'check-mark';
-checkMark.textContent = '✓';
-option.appendChild(checkMark);
-});
-});
-});
-</script>
-</body>
-
 </html>

@@ -32,7 +32,7 @@
           </div>
           <div class="hero-actions">
             <a href="menu.html" class="btn btn-primary">Menu</a>
-            <a href="#" class="btn btn-outline">Feedback</a>
+            <a href="feedback.html" class="btn btn-outline">Feedback</a>
           </div>
         </div>
 
@@ -54,110 +54,61 @@
     </section>
 
     <!-- Bestseller Section 1 -->
-    <section class="container bestseller-section">
+    <section id="featured-drinks-section" class="container bestseller-section">
       <div class="bestseller-content">
         <p class="section-label">BESTSELLER</p>
         <h2 class="section-title">Choose your<br>favorite drink</h2>
         <p class="section-desc">More than 100+ type of coffee are ready to serve by our professionals.</p>
         
         <div class="selection-tabs">
-          <span class="tab active">MATCHA</span>
-          <span class="tab">AFFOGATO</span>
-          <span class="tab">LATTE</span>
+          <!-- Dynamically populated -->
+          <span class="tab active">Loading...</span>
         </div>
         
         <a href="menu.html" class="text-accent">MORE MENU</a>
       </div>
       <div class="bestseller-image">
-        <img src="https://www.figma.com/api/mcp/asset/3ede1b1e-3ec5-4c22-b075-b2a9138f61b4" alt="Matcha Drink">
+        <img src="https://via.placeholder.com/500x600?text=Loading..." alt="Featured Drink">
       </div>
     </section>
 
     <!-- Bestseller Section 2 (Snacks) -->
-    <section class="container bestseller-section" style="flex-direction: row-reverse;">
+    <section id="featured-snacks-section" class="container bestseller-section" style="flex-direction: row-reverse;">
       <div class="bestseller-content">
         <p class="section-label">OUR SNACKS</p>
         <h2 class="section-title">Complete your drink with snacks</h2>
         <p class="section-desc">Enjoy your drink with our tasty snacks that will build your mood.</p>
         
         <div class="selection-tabs">
-          <span class="tab active">POTATO WEDGES</span>
-          <span class="tab">FRIES</span>
-          <span class="tab">COOKIES</span>
+          <!-- Dynamically populated -->
+          <span class="tab active">Loading...</span>
         </div>
         
         <a href="menu.html" class="text-accent">MORE MENU</a>
       </div>
       <div class="bestseller-image">
-        <img src="https://www.figma.com/api/mcp/asset/0e6909b5-c24b-4a00-a559-bd6f4389c8ac" alt="Snacks">
+        <img src="https://via.placeholder.com/500x600?text=Loading..." alt="Featured Snack">
       </div>
     </section>
 
     <!-- More to Try -->
-    <section class="container more-to-try">
+    <section id="more-to-try-section" class="container more-to-try">
       <div class="more-to-try-header">
         <h2 class="section-title">There's more<br>to try...</h2>
         <a href="menu.html" class="tab">MORE MENU</a>
       </div>
 
-      <div class="grid-menu">
-        <div class="menu-card">
+      <div class="grid-menu" id="featured-more-grid">
+        <!-- Dynamically populated -->
+        <div class="menu-card placeholder-card">
           <div class="menu-card-bg">
-            <img src="https://www.figma.com/api/mcp/asset/1a58b1c0-6246-4cfa-8d8e-94e0edf26150" alt="Iced Coffee">
-            <div class="menu-card-overlay"></div>
+            <div class="placeholder-img" style="height: 300px; background: #eee;"></div>
           </div>
           <div class="menu-card-content">
             <div class="menu-card-info">
-              <h4>ICED COFFEE</h4>
-              <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
-              <span class="price">PHP 100.00</span>
+              <h4>Loading...</h4>
+              <p>Fetching latest menu items...</p>
             </div>
-            <button class="add-btn"><img src="assets/images/icons/plus.svg" alt="Add"></button>
-          </div>
-        </div>
-
-        <div class="menu-card">
-          <div class="menu-card-bg">
-            <img src="https://www.figma.com/api/mcp/asset/12fe82d5-dbd7-42f2-9557-4102f4aa81cf" alt="Hot Drinks">
-            <div class="menu-card-overlay"></div>
-          </div>
-          <div class="menu-card-content">
-            <div class="menu-card-info">
-              <h4>HOT DRINKS</h4>
-              <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
-              <span class="price">PHP 100.00</span>
-            </div>
-            <button class="add-btn"><img src="assets/images/icons/plus.svg" alt="Add"></button>
-          </div>
-        </div>
-
-        <div class="menu-card">
-          <div class="menu-card-bg">
-            <img src="https://www.figma.com/api/mcp/asset/bd78da2b-44b5-4c9d-ab15-0fa8dfbdcc83" alt="Ninety-Niners">
-            <div class="menu-card-overlay"></div>
-          </div>
-          <div class="menu-card-content">
-            <div class="menu-card-info">
-              <h4>NINETY-NINERS</h4>
-              <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
-              <span class="price">PHP 99.00</span>
-            </div>
-            <button class="add-btn"><img src="assets/images/icons/plus.svg" alt="Add"></button>
-          </div>
-        </div>
-
-        <div class="menu-card">
-          <div class="menu-card-bg">
-            <img src="https://www.figma.com/api/mcp/asset/7082924f-6777-467c-912a-f5216e5f5699" alt="Snacks">
-            <div class="menu-card-overlay"></div>
-          </div>
-          <div class="menu-card-content">
-            <div class="menu-card-info">
-              <h4>LIGHT BITE SNACKS</h4>
-              <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
-              <span class="price">PHP 100.00</span>
-            </div>
-            <button class="add-btn"><img src="assets/images/icons/plus.svg" alt="Add"></button>
           </div>
         </div>
       </div>
