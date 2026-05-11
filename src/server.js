@@ -28,7 +28,7 @@ app.use('/api/feedback', feedbackRoutes);
 app.use('/api/featured', featuredRoutes);
 
 // Serve index.html for any other route (SPA style or just fallback)
-app.get('*', (req, res, next) => {
+app.get(/.*/, (req, res, next) => {
   if (req.path.startsWith('/api')) return next();
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
