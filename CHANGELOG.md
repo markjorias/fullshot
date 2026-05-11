@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - `[markjorias]` - Refactored `src/server.js` from a monolithic file into a clean entry point using modular routes.
 - `[markjorias]` - Updated `db/init_db.js` to utilize `dotenv` and remove hardcoded database defaults.
 - `[markjorias]` - Updated `deployment/deploy.azcli` to be root-directory aware, allowing it to fetch variables from the centralized `.env`.
+- `[markjorias]` - Updated `deployment/main.bicep` to inject `DB_PASS` directly from the `dbAdminPassword` parameter instead of a Key Vault reference; Key Vault RBAC was not resolving correctly for the App Service Managed Identity at runtime.
 
 ### Removed
 - `[markjorias]` - Removed hardcoded database credentials and fallbacks from `src/server.js` and `db/init_db.js`.
