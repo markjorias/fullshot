@@ -2,7 +2,7 @@
 -- Database schema for managing the coffee shop menu
 
 CREATE TABLE IF NOT EXISTS menu_items (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     description TEXT,
     price REAL NOT NULL,

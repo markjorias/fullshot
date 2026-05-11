@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS feedback (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     first_time TEXT NOT NULL,
@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS feedback (
     rating INTEGER NOT NULL,
     recommend TEXT NOT NULL,
     comments TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

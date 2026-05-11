@@ -7,18 +7,39 @@ instruction*.md
 @instruction*.md
 
 # Databases
-# *.db
 *.sqlite
 
-# Environment variables
+# Environment variables & Secrets
 .env
 .env.local
+*.pfx
+*.pem
+*.cert
+*.key
 
-# OS files
-.DS_Store
-Thumbs.db
+# Azure & Infrastructure
+.azure/
+*.arm.json
+*.bicep.json
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc Project Files
+project*.md
+tutorial_arch_linux*.md
+tutorial*.md
+deployment/README*.md

@@ -1,0 +1,41 @@
+# =========================================================
+# Azure Deployment Script for Fullshot Web App
+# =========================================================
+
+# 1. Login to Azure (if not already logged in)
+# az login
+
+# 2. Set variables
+RESOURCE_GROUP="rg-fullshot-project"
+LOCATION="eastasia" 
+
+# Load variables from root .env file
+# This finds the root directory by looking for the .git folder or package.json
+ROOT_DIR=$(git rev-parse --show-toplevel 2>/dev/null || dirname $(pwd))
+if [ -f "$ROOT_DIR/.env" ]; then
+  echo "Loading environment variables from $ROOT_DIR/.env"
+  export $(grep -v '^#' "$ROOT_DIR/.env" | xargs)
+fi
+
+# Ensure DB_PASSWORD is set
+if [ -z "$DB_PASSWORD" ]; then
+  read -sp "Enter DB Admin Password: " DB_PASSWORD
+  echo
+fi
+
+# 3. Create Resource Group
+echo "Creating Resource Group: $RESOURCE_GROUP..."
+az group create \
+  --name $RESOURCE_GROUP \
+  --location $LOCATION
+
+# 4. Deploy Bicep Template
+echo "Deploying Infrastructure via Bicep..."
+az deployment group create \
+  --resource-group $RESOURCE_GROUP \
+  --template-file main.bicep \
+  --parameters dbAdminPassword=$DB_PASSWORD
+
+# 5. Output Success Message
+echo "Deployment finished successfully!"
+echo "Check your resource group in the Azure Portal to view your deployed services."
