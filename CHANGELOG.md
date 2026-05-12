@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-05-12] - Architecture Diagram
+
+### Added
+- `[lawrence]` - Added `diagram/ArchitectureDiagram.drawio` — professional Azure architecture diagram for Deliverable 1, illustrating the cloud infrastructure, security boundaries, service connections, and deployment pipeline.
+
 ## [2026-05-12] - Security, Backend Modularization & Reporting
 
 ### Added
@@ -80,3 +85,4 @@ All notable changes to this project will be documented in this file.
 ### Added
 - `[markjorias]` - `[2a77cb6]` - Initial project scaffolding including responsive layout, global styles, and shared component architecture.
 - `[markjorias]` - Established the baseline project structure and asset management system.
+
