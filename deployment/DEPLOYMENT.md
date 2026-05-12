@@ -1,89 +1,111 @@
 # Deliverable 2: Deployment Documentation
 
-This repository utilizes **Method A (Code)** for infrastructure deployment, using Azure Bicep and the Azure CLI. This approach ensures a repeatable, version-controlled, and secure environment.
+# Azure Cloud Deployment Documentation (Method A)
+
+This documentation details the infrastructure-as-code (IaC) deployment for the Fullshot project. We utilize **Azure Bicep** and **Azure CLI** to ensure a repeatable, secure, and production-ready environment.
+
+---
 
 ## 1. Resource Mapping
-The following table maps the deployed infrastructure to the specific requirements of Deliverable 2:
+This project satisfies the requirements of Deliverable 2 through the following architecture:
 
 | Requirement | Azure Resource | Specification |
 | :--- | :--- | :--- |
-| **1. Resource Group** | `rg-fullshot-project` | Logical container for all project assets, deployed in `eastasia`. |
-| **2. Core Compute** | Azure App Service | Hosted on an **S1 Plan** with **2+ instances** (Autoscale enabled) for high availability. |
-| **3. Data Resource** | PostgreSQL Flexible Server | Burstable B1ms tier with 32GB Premium SSD storage. |
-| **4. Security Control** | Azure Key Vault + Managed Identity | Passwordless authentication using RBAC and System-Assigned Identity. |
+| **1. Resource Group** | `rg-fullshot-project` | Logical container deployed in **East Asia**. |
+| **2. Core Compute** | `Azure App Service` | Hosted on **S1 Plan (Linux)** with Autoscale enabled (2+ instances). |
+| **3. Data Resource** | `PostgreSQL Flexible Server` | **B1ms tier** with 32GB Premium SSD storage. |
+| **4. Security Control** | `Key Vault + Managed Identity` | Passwordless authentication using System-Assigned Identity. |
 
 ---
 
-## 2. Infrastructure as Code (Bicep) Specifications
+## 2. Local Environment Setup
+Before deploying to the cloud, prepare your local environment to handle application dependencies and testing.
 
-### Bicep Parameters
-The `main.bicep` template utilizes the following parameters for flexible deployment:
-* `location`: The Azure region (defaults to Resource Group location).
-* `baseName`: Unique prefix for resource naming to avoid global DNS conflicts.
-* `dbAdminUsername`: The administrator login for the PostgreSQL server.
-* `dbAdminPassword`: (Secure) The database password, automatically injected into Key Vault.
-
-### Security Implementation
-We have implemented **Advanced Security Controls** by eliminating hardcoded credentials:
-1. **Managed Identity**: The App Service is assigned a unique identity in Azure AD.
-2. **Key Vault RBAC**: Bicep creates a role assignment granting the App Service identity the `Key Vault Secrets User` role.
-3. **Runtime Resolution**: The application fetches the `DB_PASS` secret directly from Key Vault at runtime using the `@Microsoft.KeyVault` reference syntax.
-
----
-
-## 3. Deployment Instructions
-
-### Prerequisites
-* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) (v2.40.0+)
-* Active **Azure for Students** subscription.
-* **One-Time Provider Registration**:
-  ```bash
-  az provider register --namespace Microsoft.AlertsManagement
-  ```
-
-### Deployment Steps
-1. **Environment Setup**: Ensure your `.env` file in the project root contains a secure `DB_PASSWORD`.
-2. **Authentication**:
+1. **Install Node.js & NPM:**
+   Ensure you have Node.js (v18+) installed. Verify with:
    ```bash
-   az login
-   ```
-3. **Execute Deployment Script**:
+   node -v
+   npm -v
+Initialize Dependencies:
+Install required packages (Express, PG-Client, Dotenv, etc.):
+
+Bash
+npm install
+
+
+3. **Configure Environment Variables:**
+   Create a `.env` file in the root directory for local testing. **Note:** This file is excluded from Git via `.gitignore` for security.
+   ```text
+   PORT=3000
+   DB_HOST=localhost
+   DB_USER=admin
+   DB_PASSWORD=your_secure_password
+   
+3. Infrastructure Deployment (Azure CLI)
+Prerequisites
+Azure CLI (v2.40.0+)
+
+Azure for Students Subscription
+
+Provider Registration:
+
+Bash
+az provider register --namespace Microsoft.AlertsManagement
+Deployment Steps
+Login to Azure:
+
+Bash
+az login
+
+
+2. **Set Deployment Variables:**
+   To avoid hardcoding secrets in scripts, set your database password in your terminal session:
    ```bash
-   cd deployment
-   bash deploy.azcli
-   ```
-   *The script creates the Resource Group and triggers the Bicep orchestration.*
+   export DB_PASSWORD='YourSecurePassword123!'
+   
+Execute Deployment Script:
+Run the orchestration script which handles Resource Group creation and Bicep deployment:
+
+Bash
+cd deployment
+chmod +x deploy.azcli
+./deploy.azcli
+
 
 ---
 
-## 4. Post-Deployment & Verification
+## 4. Cloud Optimizations & Security
 
-### Database Initialization
-Once the infrastructure is ready, initialize the schema via the Azure SSH terminal:
-```bash
-# Navigate to application root and run init script
-node db/init_db.js
-```
+### 🛡️ Advanced Security
+*   **Zero-Secret Architecture:** We utilize **Managed Identities**. The App Service identity is granted the `Key Vault Secrets User` role via Bicep.
+*   **Runtime Resolution:** The application fetches the `DB_PASS` secret directly from Key Vault at runtime using `@Microsoft.KeyVault` references, ensuring no passwords exist in the application source code.
 
-### Verification Commands
-Use these commands to verify the state of your deployment:
-```bash
-# List all resources in the group
-az resource list --resource-group rg-fullshot-project --output table
-
-# Check App Service scale status
-az webapp show --name <app-name> --resource-group rg-fullshot-project --query "sku"
-```
+### 📈 Scalability & Fault Tolerance
+*   **Autoscale:** The App Service is configured with autoscale rules to scale out automatically if CPU utilization exceeds 70% for over 10 minutes.
+*   **High Availability:** Minimum of 2 instances are maintained to ensure availability during platform maintenance or localized failures.
 
 ---
 
-## 5. Troubleshooting
-| Symptom | Resolution |
-| :--- | :--- |
-| `MissingSubscriptionRegistration` | Register the `AlertsManagement` provider as shown in Prerequisites. |
-| Key Vault Name Conflict | Purge the soft-deleted vault using `az keyvault purge --name <vault-name>`. |
-| `DB_PASS` not resolving | Wait 5 minutes for RBAC propagation and restart the App Service. |
+## 5. Post-Deployment Verification
 
+Once the script finishes, verify the deployment:
+
+1. **Initialize Database:**
+   Access the App Service SSH terminal or run the initialization script locally if remote access is configured:
+   ```bash
+   node db/init_db.js
+Check Scaling Status:
+Verify the SKU and instance count via CLI:
+
+Bash
+az webapp show --name <your-app-name> --resource-group rg-fullshot-project --query "sku"
+
+
+---
+
+## 6. Troubleshooting
+*   **Key Vault Name Conflict:** Azure Key Vault names must be globally unique. If a vault with the same name was recently deleted, run `az keyvault purge --name <vault-name>`.
+*   **RBAC Propagation:** If the application cannot pull secrets immediately after deployment, wait 5 minutes for Azure RBAC roles to propagate and then restart the App Service.
 ---
 **References:**
 * [Bicep Deployment Documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deployment-script-develop?tabs=CLI)
