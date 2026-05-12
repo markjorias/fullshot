@@ -4,19 +4,25 @@
 
 This document describes the cloud architecture of **Fullshot**, a cloud-native e-commerce platform deployed on Microsoft Azure under the East Asia (Hong Kong) region. The architecture is designed around three core principles: **security**, **scalability**, and **high availability**, following the requirements of Scenario B (E-Commerce Storefront).
 
-The diagram is available as `ArchitectureDiagram.png` and can be opened using [draw.io](https://app.diagrams.net/).
+The diagram is available as `ArchitectureDiagram.drawio` and can be opened using [draw.io](https://app.diagrams.net/).
+
+---
+
+## Diagram
+
+![Fullshot Azure Architecture](./ArchitectureDiagram.png)
 
 ---
 
 ## Architecture Zones
 
-### 🌐 Public Zone
+### Public Zone
 The public zone represents the open internet — any user on any device accessing the platform through a browser. All traffic from this zone enters the system exclusively via **HTTPS on ports 80/443**, ensuring that no unencrypted communication is ever accepted.
 
-### 🔒 Security Boundary
+### Security Boundary
 A defined security boundary separates the public internet from the internal Azure Resource Group. Only HTTPS traffic is permitted to cross this boundary, enforced at the App Service level. No direct access to the database or secrets store is exposed to the public zone.
 
-### 🌐 Azure Resource Group — East Asia
+### Azure Resource Group — East Asia
 All application resources are provisioned within a single Azure Resource Group in the **East Asia (Hong Kong)** region. This logical grouping enables unified access control, cost tracking, and lifecycle management of all services.
 
 ---
@@ -117,10 +123,10 @@ A Node.js script that connects to the provisioned PostgreSQL instance and runs t
 
 ## Diagram File
 
-The architecture diagram is located at:
+The editable architecture diagram is located at:
 
 ```
-diagram/ArchitectureDiagram.png
+diagram/ArchitectureDiagram.drawio
 ```
 
 Open with [draw.io](https://app.diagrams.net/) (File → Import from Device) or directly via the [draw.io VS Code extension](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio).

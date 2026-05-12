@@ -17,7 +17,9 @@ Fullshot is a modern e-commerce platform developed as a cloud-native redesign of
 ## Final Project Deliverables
 
 ### Deliverable 1: Architecture Diagram
-Access the professional Azure architecture diagram in the [diagram](./diagram/) directory. This documentation details the baseline design, security boundaries, and implemented cloud optimizations.
+![Fullshot Azure Architecture](./diagram/ArchitectureDiagram.png)
+
+> [Check the full discussion for the diagram here](./diagram/DIAGRAM.md)
 
 ### Deliverable 2: Deployment Documentation
 Comprehensive setup and Infrastructure as Code (IaC) guides are located in the [deployment](./deployment/) directory. 
@@ -58,7 +60,7 @@ The following itemized monthly cost estimate is based on the East Asia (Hong Kon
 For the complete analysis and cost optimization strategies, view the [Full Cost Estimate Report](./report/cost-estimate.md).
 
 ### Deliverable 4: Live Demo and Video Presentation
-* **Live Application URL:** [https://fullshot-app.azurewebsites.net/](https://fullshot-app.azurewebsites.net/)
+* **Live Application URL:** [https://fullshotixnofupbqwjp2-app.azurewebsites.net//](https://fullshotixnofupbqwjp2-app.azurewebsites.net//)
 * **Video Presentation:** [YouTube Unlisted Link Placeholder](https://youtube.com/)
 
 ---
