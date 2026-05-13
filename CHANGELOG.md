@@ -2,32 +2,49 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-05-13] - Documentation Enhancements & Structural Refinement
+
+### Added
+
+- `[markjorias]` - Added a detailed "Local Environment Setup" section to `deployment/DEPLOYMENT.md`.
+- `[markjorias]` - Implemented a Table of Contents for improved navigation in the deployment documentation.
+
+### Changed
+
+- `[markjorias]` - Reorganized and renumbered `deployment/DEPLOYMENT.md` for better clarity and flow.
+- `[markjorias]` - Integrated "Cloud Optimizations & Security" section directly into the main deployment guide.
+
 ## [2026-05-12] - Deployment Documentation & Environment Finalization
 
 ### Added
+
 - `[ale-xanderr]` - Created the comprehensive deployment guide in `deployment/DEPLOYMENT.md`, covering Node.js/NPM installation and local environment prerequisites.
 - `[ale-xanderr]` - Documented the "Zero-Secret" security architecture, specifically detailing the Managed Identity and Key Vault RBAC flow.
 - `[ale-xanderr]` - Added a "Post-Deployment Verification" checklist to ensure successful database initialization and autoscale validation.
 
 ### Changed
+
 - `[ale-xanderr]` - Standardized the deployment instructions to utilize Method A (Azure CLI) to satisfy high-distinction grading criteria.
 - `[ale-xanderr]` - Updated documentation to include explicit troubleshooting steps for Key Vault name conflicts and RBAC propagation delays.
 
 ## [2026-05-12] - README and Diagram Updates
 
 ### Changed
+
 - `[lawrence]` - Updated `README.md` Deliverable 1 section to embed the architecture diagram image directly and added a link to the full diagram discussion in `DIAGRAM.md`.
 - `[lawrence]` - Updated live application URL in `README.md` to `https://fullshotixnofupbqwjp2-app.azurewebsites.net/`.
 
 ## [2026-05-12] - Architecture Diagram & Documentation
 
 ### Added
+
 - `[lawrence]` - Added `diagram/ArchitectureDiagram.drawio` — draw.io architecture diagram for Deliverable 1.
 - `[lawrence]` - Added `diagram/DIAGRAM.md` — full documentation of the Azure cloud architecture, covering all services, security boundaries, service connections, deployment pipeline, and cloud optimizations.
 
 ## [2026-05-12] - Security, Backend Modularization & Reporting
 
 ### Added
+
 - `[markjorias]` - Created the 'Deliverable 3 - Cost Estimate Report' (`report/cost-estimate.md`), cross-checked and verified against the official Azure Pricing Calculator export (`report/ExportedEstimate.xlsx`) for the East Asia region.
 - `[markjorias]` - Added a quick-view 'Itemized Cost Breakdown' table to the root `README.md` for immediate visibility of project costs.
 - `[markjorias]` - Added `DB_NAME` environment variable to Bicep template for explicit database targeting.
@@ -38,6 +55,7 @@ All notable changes to this project will be documented in this file.
 - `[markjorias]` - Modularized the backend into a dedicated `src/config/db.js` and Express Router files in `src/routes/`.
 
 ### Changed
+
 - `[markjorias]` - Expanded `deployment/DEPLOYMENT.md` to include explicit resource mapping, high availability specifications, and advanced security implementation details to meet Deliverable 2 criteria.
 - `[markjorias]` - Redesigned the root `README.md` to professional engineering standards, implementing a clickable Table of Contents and explicit mapping for Deliverables 1-4.
 - `[markjorias]` - Consolidated high-level deployment steps and "Quick Start" instructions into the root `README.md` under Deliverable 2.
@@ -48,11 +66,13 @@ All notable changes to this project will be documented in this file.
 - `[markjorias]` - Updated `deployment/deploy.azcli` to be root-directory aware, allowing it to fetch variables from the centralized `.env`.
 
 ### Removed
+
 - `[markjorias]` - Removed outdated `tutorial.md` and `tutorial_arch_linux.md` documentation files.
 - `[markjorias]` - Removed hardcoded database credentials and fallbacks from `src/server.js` and `db/init_db.js`.
 - `[markjorias]` - Removed redundant `.env.sample` from the `deployment/` folder.
 
 ### Fixed
+
 - `[markjorias]` - Fixed Express 5.x routing crash in `src/server.js` by updating wildcard fallback to regex.
 - `[markjorias]` - Fixed ReferenceError in `db/init_db.js` caused by uninitialized `path` module.
 - `[markjorias]` - Fixed PostgreSQL incompatible `INSERT OR IGNORE` syntax in `db/schema_menu.sql`; replaced with `ON CONFLICT DO NOTHING`.
@@ -67,12 +87,14 @@ All notable changes to this project will be documented in this file.
 ## [2026-05-11] - Cloud Architecture Optimization
 
 ### Added
+
 - `[markjorias]` - Added infrastructure-as-code scripts (`main.bicep` and `deploy.azcli`) for automated deployment.
 - `[markjorias]` - Added Azure Key Vault for secure database credential storage.
 - `[markjorias]` - Added Application Insights for telemetry and advanced error tracking.
 - `[markjorias]` - Added `convert_sql.py` to automate the migration of SQL schemas from SQLite to PostgreSQL.
 
 ### Changed
+
 - `[markjorias]` - Migrated the project's compute resource from a standalone Virtual Machine to Azure App Service (Standard S1) to support autoscale rules.
 - `[markjorias]` - Replaced the local `coffee_shop.db` (SQLite) database with an Azure Database for PostgreSQL Flexible Server for persistent cloud storage.
 - `[markjorias]` - Refactored `src/server.js` to utilize the `pg` package instead of `sqlite3`, enabling secure and robust cloud database connections.
@@ -80,12 +102,15 @@ All notable changes to this project will be documented in this file.
 - `[markjorias]` - Modified SQL schema files (`db/*.sql`) to use `SERIAL PRIMARY KEY` instead of `INTEGER PRIMARY KEY AUTOINCREMENT`.
 
 ### Removed
+
 - `[markjorias]` - Uninstalled the `sqlite3` dependency from `package.json` to reduce package size.
+
 ---
 
 ## [2026-05-10] - Initial Deployment & CI/CD Integration
 
 ### Added
+
 - `[markjorias]` - Successfully completed the initial live deployment of **Fullshot v1** to Azure.
 - `[markjorias]` - Integrated infrastructure-as-code foundations for manual deployment tracking.
 - `[markjorias]` - `[db branch]` - Implemented OTP verification flow with backend integration and cart visibility logic.
@@ -93,6 +118,7 @@ All notable changes to this project will be documented in this file.
 ## [2026-05-06] - Core Feature Development
 
 ### Added
+
 - `[markjorias]` - Implemented full-stack e-commerce features: shopping cart, secure checkout, and order history tracking.
 - `[markjorias]` - Created a comprehensive Admin Dashboard with real-time menu management and analytics.
 - `[markjorias]` - Established the core backend infrastructure using Node.js and SQLite.
@@ -101,6 +127,6 @@ All notable changes to this project will be documented in this file.
 ## [2026-05-05] - Project Initialization
 
 ### Added
+
 - `[markjorias]` - `[2a77cb6]` - Initial project scaffolding including responsive layout, global styles, and shared component architecture.
 - `[markjorias]` - Established the baseline project structure and asset management system.
-
