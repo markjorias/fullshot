@@ -61,7 +61,7 @@ For the complete analysis and cost optimization strategies, view the [Full Cost 
 
 ### Deliverable 4: Live Demo and Video Presentation
 * **Live Application URL:** [https://fullshotixnofupbqwjp2-app.azurewebsites.net//](https://fullshotixnofupbqwjp2-app.azurewebsites.net//)
-* **Video Presentation:** [YouTube Unlisted Link Placeholder](https://youtube.com/)
+* **Video Presentation:** [https://youtu.be/9nzKN8By8xo](https://youtu.be/9nzKN8By8xo)
 
 ---
 
